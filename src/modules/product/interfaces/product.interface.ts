@@ -1,20 +1,12 @@
 export type ProductInterface = {
-    id: number;
-    companyName: string;
-    tradingName: string;
-    cnpj: string;
-    email: string;
-    phoneNumber: string;
-    mobileNumber: string;
-    segment: string;
-    website?: string;
-    description: string;
-    logo?: string;
-    street: string;
-    number: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    active?: boolean;
-  }
+  id: number;
+  name: string;
+  description: string;
+  sku: string;
+  image: string;
+  price: number;
+  priceUpdatedAt: string | Date;
+  supplierId: number;
+  productCategoryId: number;
+  active?: boolean;
+};

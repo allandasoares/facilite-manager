@@ -1,22 +1,22 @@
 import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import SupplierCategoryForm from "./SupplierCategoryForm";
-import { CreateSupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/create-supplier-category.interface";
-import supplierCategoryService from "../../../modules/supplier-category/services/supplier-category.service";
+import productCategoryService from "../../../modules/product-category/services/product-category.service";
 import { useEffect, useState } from "react";
-import { SupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/supplier-category.interface";
-import { createSupplierCategoryValidator } from "../../../modules/supplier-category/validators/create-supplier-category.validator";
+import { createProductCategoryValidator } from "../../../modules/product-category/validators/create-product-category.validator";
+import { CreateProductCategoryInterface } from "../../../modules/product-category/interfaces/create-product-category.interface";
+import ProductCategoryForm from "./ProductCategoryForm";
+import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
 
-const initialValues: CreateSupplierCategoryInterface = {
+const initialValues: CreateProductCategoryInterface = {
   name: "",
   parentId: null,
 };
 
-export default function RegisterSupplierCategory() {
+export default function RegisterProductCategory() {
   const handleOnSubmit = async () => {
     try {
       console.log(formik.values);
-      await supplierCategoryService.create(formik.values);
+      await productCategoryService.create(formik.values);
       console.log("Deu certo");
     } catch (error) {
       console.log("Deu Ruim");
@@ -26,14 +26,14 @@ export default function RegisterSupplierCategory() {
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: handleOnSubmit,
-    validationSchema: createSupplierCategoryValidator,
+    validationSchema: createProductCategoryValidator,
   });
-  const [suppliersCategories, setSuppliersCategories] = useState<
-    SupplierCategoryInterface[]
+  const [productsCategories, setProductsCategories] = useState<
+    ProductCategoryInterface[]
   >([]);
 
   useEffect(() => {
-    supplierCategoryService
+    productCategoryService
       .getAll()
       .then((response: any) => {
         const res = response.data.data.map((item: any) => {
@@ -42,7 +42,7 @@ export default function RegisterSupplierCategory() {
             label: item.name,
           };
         });
-        setSuppliersCategories(res);
+        setProductsCategories(res);
       })
       .catch((error: any) => {
         console.log("Deu erro aqui em", error);
@@ -53,11 +53,11 @@ export default function RegisterSupplierCategory() {
     <Box w="100%" h="100vh">
       <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
-          New supplier category
+          New product category
         </Heading>
-        <SupplierCategoryForm
+        <ProductCategoryForm
           formik={formik}
-          suppliersCategories={suppliersCategories}
+          productsCategories={productsCategories}
         />
         <Button
           colorScheme="blue"
