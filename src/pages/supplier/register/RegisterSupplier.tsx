@@ -1,5 +1,4 @@
 import { Box, Card, SimpleGrid, Heading, Button } from "@chakra-ui/react";
-import TopBar from "../../../components/TopBar";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { CreateSupplierInterface } from "../../../modules/supplier/interfaces/create-supplier.interface";
@@ -27,7 +26,7 @@ const initialValues: CreateSupplierInterface = {
   logo: "logo",
 };
 
-export default function Register() {
+export default function RegisterSupplier() {
   const navigate = useNavigate();
 
   const handleOnSubmit = async () => {
@@ -46,9 +45,8 @@ export default function Register() {
   });
 
   return (
-    <Box w="100%" h="100vh" overflow="scroll">
-      <TopBar />
-      <Card justify="center" m="100px" p="30px">
+    <Box w="100%" h="100vh">
+      <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
           New supplier
         </Heading>

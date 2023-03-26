@@ -1,4 +1,4 @@
-import { SimpleGrid, Button } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import TextField from "../../../components/form/TextField";
 
 const SupplierForm = ({ formik }: any) => {

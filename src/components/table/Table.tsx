@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Table as ChakraTable,
   TableContainer,
@@ -7,11 +7,11 @@ import {
   Tr,
   Th,
   Td,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 interface Column {
   header: string;
-  accessor: string;
+  accessor: string | Function;
 }
 
 interface TableProps {
@@ -34,7 +34,11 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
           {data.map((item, index) => (
             <Tr key={index}>
               {columns.map((column, colIndex) => (
-                <Td key={colIndex}>{item[column.accessor]}</Td>
+                <Td key={colIndex}>
+                  {typeof column.accessor === "function"
+                    ? column.accessor(item)
+                    : item[column.accessor]}
+                </Td>
               ))}
             </Tr>
           ))}

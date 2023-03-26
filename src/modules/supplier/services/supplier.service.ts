@@ -1,4 +1,4 @@
-import { api } from "../../../services/api";
+import api from "../../../services/api";
 import { CreateSupplierInterface } from "../interfaces/create-supplier.interface";
 import { UpdateSupplierInterface } from "../interfaces/update-supplier.interface";
 
