@@ -10,12 +10,17 @@ import {
   VStack,
   chakra,
   Icon,
+  Input,
+  IconButton,
+  CheckboxIcon,
 } from "@chakra-ui/react";
 import { VariationOptionsInterface } from "../../../modules/variation-option/interfaces/variation-options.interface";
 import { VariationInterface } from "../../../modules/variation/interfaces/variation.interface";
 import variationService from "../../../modules/variation/services/variation.service";
-import { MdAddCircleOutline } from "react-icons/md";
-import { FiShoppingCart } from "react-icons/fi";
+import { MdAddCircleOutline, MdCancel } from "react-icons/md";
+import variationOptionsService from "../../../modules/variation-option/services/variation-option.service";
+import BaseCardWithForm from "./BaseCardWithForm";
+import AddNewCard from "./AddNewCard";
 
 export default function RegisterVariationOptions() {
   const { variationId } = useParams();
@@ -23,6 +28,43 @@ export default function RegisterVariationOptions() {
     VariationOptionsInterface[]
   >([]);
   const [variation, setVariation] = useState<VariationInterface>();
+  const [editState, setEditState] = useState<{
+    id: number | null;
+    edit: boolean;
+  }>({
+    id: null,
+    edit: false,
+  });
+  const saveVariationOption = (name: string) => {
+    variationOptionsService
+      .create({
+        name,
+        variationId: +variationId!,
+      })
+      .then((response) => {
+        setVariationOptions([...variationOptions, response.data.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const updateVariationOption = (name: string, id: number) => {
+    variationOptionsService
+      .update(id, {
+        name,
+        variationId: +variationId!,
+      })
+      .then((response) => {
+        setVariationOptions(
+          variationOptions.map((variationOption) =>
+            variationOption.id === id ? response.data.data : variationOption
+          )
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     if (!variationId) return;
@@ -31,10 +73,7 @@ export default function RegisterVariationOptions() {
       .getOne(+variationId)
       .then((response) => {
         setVariation(response.data.data);
-        const a = response.data.data.variationsOptions;
-        // create a new array but with 3 times content in a variable
-        const b = [...a];
-        setVariationOptions(b);
+        setVariationOptions(response.data.data.variationsOptions);
       })
       .catch((error) => {
         console.log(error);
@@ -48,35 +87,24 @@ export default function RegisterVariationOptions() {
           {`Variação: ${variation?.name}`}
         </Heading>
         <Flex justifyContent="start" wrap="wrap" w="100%">
-          <VariationOptionsCard
-            onClick={() => {
-              alert("NOVA OPÇÃO");
-            }}
-          >
-            <VStack display="flex" justifyContent="center" alignItems="center">
-              <chakra.a display={"flex"}>
-                <Icon
-                  as={MdAddCircleOutline}
-                  h={8}
-                  w={8}
-                  alignSelf={"center"}
-                />
-              </chakra.a>
-              <Text fontSize="medium">Criar nova opção</Text>
-            </VStack>
-          </VariationOptionsCard>
-
+          <AddNewCard editState={editState} setEditState={setEditState} onSave={saveVariationOption}/>
           {variationOptions.map(
             (variationOption: VariationOptionsInterface) => (
-              <VariationOptionsCard
-                onClick={() => {
-                  alert(`EDITAR OPÇÃO ${variationOption.id}`);
-                }}
+              <BaseCardWithForm
+                key={variationOption.id}
+                editState={editState}
+                setEditState={setEditState}
+                onSave={updateVariationOption}
+                variationOptionId={variationOption.id}
+                variationOptionName={variationOption.name}
               >
                 <Stack
                   direction="row"
                   alignItems="center"
                   justifyContent="space-between"
+                  onClick={() =>
+                    setEditState({ id: variationOption.id, edit: true })
+                  }
                 >
                   <Text fontWeight="bold" fontSize="xl">
                     {variationOption.name}
@@ -93,36 +121,11 @@ export default function RegisterVariationOptions() {
                   Criado em:{" "}
                   {new Date(variationOption.createdAt!).toLocaleString()}
                 </Text>
-              </VariationOptionsCard>
+              </BaseCardWithForm>
             )
           )}
         </Flex>
       </VStack>
-    </Box>
-  );
-}
-
-function VariationOptionsCard({ children, ...rest }: any) {
-  return (
-    <Box
-      {...rest}
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      p={4}
-      m={2}
-      backgroundColor="gray.50"
-      minWidth={{ base: "100%", sm: "45%", md: "30%" }}
-      width={{ base: "100%", sm: "45%", md: "30%" }}
-      _hover={{
-        boxShadow: "xl",
-        backgroundColor: "gray.200",
-        cursor: "pointer",
-        transform: "scale(1.02)",
-        transition: "all 0.2s",
-      }}
-    >
-      {children}
     </Box>
   );
 }
