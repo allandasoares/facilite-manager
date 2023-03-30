@@ -9,6 +9,7 @@ const productService = {
   update: (id: number, data: UpdateProductInterface) =>
     api.put(`/products/${id}`, data),
   delete: (id: number) => api.delete(`/products/${id}`),
+  getOneProductWithVariations: (id: number) => api.get(`/products/${id}/variations`),
 };
 
 export default productService;

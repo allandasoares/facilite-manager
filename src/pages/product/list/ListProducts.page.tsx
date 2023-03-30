@@ -1,25 +1,14 @@
 import { Box, Button, Card, WrapItem } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { MdAddCircle } from "react-icons/md";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { ProductInterface } from "../../../modules/product/interfaces/product.interface";
 import productService from "../../../modules/product/services/product.service";
 import ProductsTable from "./ProductsTable";
 
 export default function ListProducts() {
-  const [products, setProduct] = useState<ProductInterface[]>([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    productService
-      .getAll()
-      .then((response: any) => {
-        setProduct(response.data.data);
-      })
-      .catch((error: any) => {
-        console.log("Deu erro aqui em", error);
-      });
-  }, []);
+  const { data } = useQuery("products", productService.getAll);
 
   return (
     <Box w="100%" h="100vh">
@@ -34,7 +23,7 @@ export default function ListProducts() {
         </Button>
       </WrapItem>
       <Card justify="center" p="30px">
-        <ProductsTable products={products} />
+        <ProductsTable products={data?.data?.data} />
       </Card>
     </Box>
   );

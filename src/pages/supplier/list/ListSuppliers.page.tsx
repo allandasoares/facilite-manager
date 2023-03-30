@@ -1,25 +1,13 @@
 import { Box, Button, Card, WrapItem } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { SupplierInterface } from "../../../modules/supplier/interfaces/supplier.interface";
 import supplierService from "../../../modules/supplier/services/supplier.service";
-import SupplierTable from "./SuppliersTable";
+import SupplierTable from "./SuppliersTable.page";
 import { MdAddCircle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
 export default function ListSuppliers() {
-  const [suppliers, setSuppliers] = useState<SupplierInterface[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supplierService
-      .getAll()
-      .then((response: any) => {
-        setSuppliers(response.data.data);
-      })
-      .catch((error: any) => {
-        console.log("Deu erro aqui em", error);
-      });
-  }, []);
+  const { data } = useQuery("suppliers", supplierService.getAll);
 
   return (
     <Box w="100%" h="100vh">
@@ -34,7 +22,7 @@ export default function ListSuppliers() {
         </Button>
       </WrapItem>
       <Card justify="center" p="30px">
-        <SupplierTable suppliers={suppliers} />
+        <SupplierTable suppliers={data?.data?.data} />
       </Card>
     </Box>
   );
