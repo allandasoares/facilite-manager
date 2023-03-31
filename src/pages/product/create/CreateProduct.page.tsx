@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { CreateProductInterface } from '../../../modules/product/interfaces/create-product.interface';
 import productService from '../../../modules/product/services/product.service';
 import createProductValidator from '../../../modules/product/validators/create-supplier.validator';
-import ProductForm from './ProductForm';
+import ProductForm from '../ProductForm';
 
 const initialValues: CreateProductInterface = {
   name: 'Empresa Teste',
@@ -19,7 +19,7 @@ const initialValues: CreateProductInterface = {
   supplierId: 1,
 };
 
-export default function RegisterProduct() {
+export default function CreatProductPage() {
   const navigate = useNavigate();
 
   const { mutate } = useMutation(productService.create, {
@@ -40,7 +40,7 @@ export default function RegisterProduct() {
     <Box w="100%" h="100vh">
       <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
-          New product
+          Atualizar Produto
         </Heading>
         <ProductForm formik={formik} />
         <Button

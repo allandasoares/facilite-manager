@@ -4,10 +4,10 @@ import {
 import { MdAddCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import SupplierTable from './SuppliersTable.page';
+import SupplierTable from './SuppliersTable';
 import supplierService from '../../../modules/supplier/services/supplier.service';
 
-export default function ListSuppliers() {
+export default function ListSuppliersPage() {
   const navigate = useNavigate();
   const { data } = useQuery('suppliers', supplierService.getAll);
 

@@ -1,20 +1,25 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/Home.page';
 import Login from '../pages/login/Login.page';
-import ListSuppliers from '../pages/supplier/list/ListSuppliers.page';
-import ListSuppliersCategory from '../pages/supplier-category/list/ListSuppliersCategory.page';
-import RegisterSupplier from '../pages/supplier/register/RegisterSupplier.page';
 import PrivateRoutes from './PrivateRoutes';
-import RegisterSupplierCategory from '../pages/supplier-category/register/RegisterSupplierCategory.page';
-import ListProducts from '../pages/product/list/ListProducts.page';
-import RegisterProduct from '../pages/product/register/RegisterProduct.page';
+import CreatProductPage from '../pages/product/create/CreateProduct.page';
 import TopBar from '../components/layout/TopBar';
-import ListProductsCategory from '../pages/product-category/list/ListProductsCategory.page';
-import RegisterProductCategory from '../pages/product-category/register/RegisterProductCategory.page';
-import ListVariations from '../pages/variation/list/ListVariations.page';
-import RegisterVariation from '../pages/variation/register/RegisterVariation.page';
-import RegisterVariationOptions from '../pages/variation-option/register/RegisterVariationOptions.page';
-import ProductVariations from '../pages/product/variation/ProductVariations.page';
+import CreateSupplierPage from '../pages/supplier/create/CreateSupplier.page';
+import UpdateSupplierPage from '../pages/supplier/update/UpdateSupplier.page';
+import ListProductsPage from '../pages/product/list/ListProducts.page';
+import UpdateProductPage from '../pages/product/update/UpdateProduct.page';
+import CreateProductCategoryPage from '../pages/product-category/create/CreateProductCategory.page';
+import UpdateProductCategoryPage from '../pages/product-category/update/UpdaeProductCategory.page';
+import ProductVariationsPage from '../pages/product/variation/ProductVariations.page';
+import ListProductsCategoryPage from '../pages/product-category/list/ListProductsCategory.page';
+import CreateSupplierCategoryPage from '../pages/supplier-category/create/CreateSupplierCategory.page';
+import ListSuppliersCategoryPage from '../pages/supplier-category/list/ListSuppliersCategory.page';
+import UpdateSupplierCategoryPage from '../pages/supplier-category/update/UpdateSupplierCategory.page';
+import ListVariationsPage from '../pages/variation/list/ListVariations.page';
+import CreateVariationPage from '../pages/variation/create/CreateVariation.page';
+import CreateVariationOptionsPage from '../pages/variation-option/register/RegisterVariationOptions.page';
+import UpdateVariationPage from '../pages/variation/update/UpdateVariation.page';
+import ListSuppliersPage from '../pages/supplier/list/ListSuppliers.page';
 
 function RouteWithSideMenu(component: JSX.Element) {
   return <TopBar>{component}</TopBar>;
@@ -30,51 +35,71 @@ export default function Router() {
           <Route path="/home" element={RouteWithSideMenu(<Home />)} />
           <Route
             path="/suppliers"
-            element={RouteWithSideMenu(<ListSuppliers />)}
+            element={RouteWithSideMenu(<ListSuppliersPage />)}
           />
           <Route
             path="/suppliers/new"
-            element={RouteWithSideMenu(<RegisterSupplier />)}
+            element={RouteWithSideMenu(<CreateSupplierPage />)}
+          />
+          <Route
+            path="/suppliers/edit/:supplierId"
+            element={RouteWithSideMenu(<UpdateSupplierPage />)}
           />
           <Route
             path="/suppliers-categories"
-            element={RouteWithSideMenu(<ListSuppliersCategory />)}
+            element={RouteWithSideMenu(<ListSuppliersCategoryPage />)}
           />
           <Route
             path="/suppliers-categories/new"
-            element={RouteWithSideMenu(<RegisterSupplierCategory />)}
+            element={RouteWithSideMenu(<CreateSupplierCategoryPage />)}
+          />
+          <Route
+            path="/suppliers-categories/edit/:supplierCategoryId"
+            element={RouteWithSideMenu(<UpdateSupplierCategoryPage />)}
           />
           <Route
             path="/products"
-            element={RouteWithSideMenu(<ListProducts />)}
-          />
-          <Route
-            path="/products/:productId/variations"
-            element={RouteWithSideMenu(<ProductVariations />)}
+            element={RouteWithSideMenu(<ListProductsPage />)}
           />
           <Route
             path="/products/new"
-            element={RouteWithSideMenu(<RegisterProduct />)}
+            element={RouteWithSideMenu(<CreatProductPage />)}
+          />
+          <Route
+            path="/products/edit/:productId"
+            element={RouteWithSideMenu(<UpdateProductPage />)}
+          />
+          <Route
+            path="/products/:productId/variations"
+            element={RouteWithSideMenu(<ProductVariationsPage />)}
           />
           <Route
             path="/products-categories"
-            element={RouteWithSideMenu(<ListProductsCategory />)}
+            element={RouteWithSideMenu(<ListProductsCategoryPage />)}
           />
           <Route
             path="/products-categories/new"
-            element={RouteWithSideMenu(<RegisterProductCategory />)}
+            element={RouteWithSideMenu(<CreateProductCategoryPage />)}
+          />
+          <Route
+            path="/products-categories/edit/:productCategoryId"
+            element={RouteWithSideMenu(<UpdateProductCategoryPage />)}
           />
           <Route
             path="/variations"
-            element={RouteWithSideMenu(<ListVariations />)}
+            element={RouteWithSideMenu(<ListVariationsPage />)}
           />
           <Route
             path="/variations/new"
-            element={RouteWithSideMenu(<RegisterVariation />)}
+            element={RouteWithSideMenu(<CreateVariationPage />)}
+          />
+          <Route
+            path="/variations/edit/:variationId"
+            element={RouteWithSideMenu(<UpdateVariationPage />)}
           />
           <Route
             path="/variations-options/variations/:variationId"
-            element={RouteWithSideMenu(<RegisterVariationOptions />)}
+            element={RouteWithSideMenu(<CreateVariationOptionsPage />)}
           />
         </Route>
       </Routes>

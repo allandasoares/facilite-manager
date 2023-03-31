@@ -21,7 +21,7 @@ interface EditState {
   id: number | null;
   edit: boolean;
 }
-export default function RegisterVariationOptions() {
+export default function CreateVariationOptionsPage() {
   const queryClient = useQueryClient();
   const { variationId } = useParams();
   const [editState, setEditState] = useState<EditState>({

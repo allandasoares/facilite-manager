@@ -6,7 +6,7 @@ import { useMutation } from 'react-query';
 import { CreateSupplierInterface } from '../../../modules/supplier/interfaces/create-supplier.interface';
 import supplierService from '../../../modules/supplier/services/supplier.service';
 import createSupplierValidator from '../../../modules/supplier/validators/create-supplier.validator';
-import SupplierForm from './SupplierForm';
+import SupplierForm from '../SupplierForm';
 
 const initialValues: CreateSupplierInterface = {
   companyName: 'Empresa Teste',
@@ -27,7 +27,7 @@ const initialValues: CreateSupplierInterface = {
   logo: 'logo',
 };
 
-export default function RegisterSupplier() {
+export default function CreateSupplierPage(): JSX.Element {
   const { mutate } = useMutation(supplierService.create, {
     onSuccess: () => {},
   });
@@ -42,7 +42,7 @@ export default function RegisterSupplier() {
     <Box w="100%" h="100vh">
       <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
-          New supplier
+          Novo Fornecedor
         </Heading>
         <SupplierForm formik={formik} />
         <Button

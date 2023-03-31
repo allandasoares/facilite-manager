@@ -4,7 +4,7 @@ export type UpdateProductInterface = {
   sku: string;
   image: string;
   price: number;
-  priceUpdatedAt: string | Date;
+  priceUpdatedAt?: string | Date;
   supplierId: number;
   productCategoryId: number;
   active?: boolean;

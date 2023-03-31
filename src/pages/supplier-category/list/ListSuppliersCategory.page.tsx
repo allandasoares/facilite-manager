@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import supplierCategoryService from '../../../modules/supplier-category/services/supplier-category.service';
 import SuppliersCategoryTable from './SuppliersCategoryTable';
 
-export default function ListSuppliersCategory() {
+export default function ListSuppliersCategoryPage() {
   const navigate = useNavigate();
 
   const { data } = useQuery('suppliers-category', supplierCategoryService.getAll);

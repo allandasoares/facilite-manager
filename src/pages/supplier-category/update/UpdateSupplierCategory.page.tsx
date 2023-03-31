@@ -3,27 +3,35 @@ import {
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
-import SupplierCategoryForm from './SupplierCategoryForm';
-import { CreateSupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/create-supplier-category.interface';
+import { useMutation, useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
+import SupplierCategoryForm from '../SupplierCategoryForm';
 import supplierCategoryService from '../../../modules/supplier-category/services/supplier-category.service';
 import { SupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/supplier-category.interface';
 import createSupplierCategoryValidator from '../../../modules/supplier-category/validators/create-supplier-category.validator';
+import { UpdateSupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/update-supplier-category.interface';
 
-const initialValues: CreateSupplierCategoryInterface = {
+const initialValues: UpdateSupplierCategoryInterface = {
   name: '',
   parentId: null,
 };
 
-export default function RegisterSupplierCategory() {
-  const { mutate } = useMutation(supplierCategoryService.create, {
-    onSuccess: () => {},
-  });
+export default function UpdateSupplierCategoryPage() {
+  const { supplierCategoryId } = useParams();
+  const { mutate } = useMutation(
+    (data: UpdateSupplierCategoryInterface) => supplierCategoryService
+      .update(+supplierCategoryId!, data),
+    {
+      onSuccess: () => {},
+    },
+  );
+  const { data } = useQuery(['supplier-category', supplierCategoryId], () => supplierCategoryService.getOne(+supplierCategoryId!));
 
   const formik = useFormik({
-    initialValues,
+    initialValues: data?.data.data || initialValues,
     onSubmit: () => { mutate(formik.values); },
     validationSchema: createSupplierCategoryValidator,
+    enableReinitialize: true, // This will update initialValues when data?.data.data changes
   });
   const [suppliersCategories, setSuppliersCategories] = useState<
   SupplierCategoryInterface[]
@@ -48,7 +56,7 @@ export default function RegisterSupplierCategory() {
     <Box w="100%" h="100vh">
       <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
-          New supplier category
+          Atualizar categoria de fornecedor
         </Heading>
         <SupplierCategoryForm
           formik={formik}
@@ -60,7 +68,7 @@ export default function RegisterSupplierCategory() {
           type="submit"
           onClick={() => formik.handleSubmit()}
         >
-          Create
+          Update
         </Button>
       </Card>
     </Box>

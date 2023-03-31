@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import productService from '../../../modules/product/services/product.service';
 import ProductsTable from './ProductsTable';
 
-export default function ListProducts() {
+export default function ListProductsPage() {
   const navigate = useNavigate();
 
   const { data } = useQuery('products', productService.getAll);

@@ -28,6 +28,14 @@ const VariationsTable: React.FC<VariationsTableProps> = ({ variations }) => {
         </Button>
       ),
     },
+    {
+      header: 'Ações',
+      accessor: (item: any) => (
+        <Button onClick={() => navigate(`/variations/edit/${item.id}`)}>
+          Editar
+        </Button>
+      ),
+    },
   ];
 
   return <Table data={variations} columns={columns} />;

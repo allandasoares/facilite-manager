@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import productCategoryService from '../../../modules/product-category/services/product-category.service';
 import ProductsCategoryTable from './ProductsCategoryTable';
 
-export default function ListProductsCategory() {
+export default function ListProductsCategoryPage() {
   const navigate = useNavigate();
 
   const { data } = useQuery('products-category', productCategoryService.getAll);

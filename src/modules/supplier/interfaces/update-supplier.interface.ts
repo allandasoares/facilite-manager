@@ -1,4 +1,5 @@
 export type UpdateSupplierInterface = {
+  id?: number;
   companyName: string;
   tradingName: string;
   cnpj: string;

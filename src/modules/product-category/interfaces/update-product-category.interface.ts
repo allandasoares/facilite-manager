@@ -1,5 +1,5 @@
 export type UpdateProductCategoryInterface = {
   name: string;
-  parentId?: number;
+  parentId?: number | null;
   active?: boolean;
 };

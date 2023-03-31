@@ -6,13 +6,13 @@ import { useMutation } from 'react-query';
 import { CreateVariationInterface } from '../../../modules/variation/interfaces/create-variation.interface';
 import variationService from '../../../modules/variation/services/variation.service';
 import createVariationValidator from '../../../modules/variation/validators/create-variation.validator';
-import VariationForm from './VariationForm';
+import VariationForm from '../VariationForm';
 
 const initialValues: CreateVariationInterface = {
   name: 'Cor',
 };
 
-export default function RegisterVariation() {
+export default function CreateVariationPage() {
   const { mutate } = useMutation(variationService.create, {
     onSuccess: () => {},
   });

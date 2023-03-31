@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import variationService from '../../../modules/variation/services/variation.service';
 import VariationsTable from './VariationsTable';
 
-export default function ListVariations() {
+export default function ListVariationsPage() {
   const navigate = useNavigate();
   const { data } = useQuery('variations', variationService.getAll);
 

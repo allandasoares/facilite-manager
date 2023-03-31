@@ -21,7 +21,7 @@ import { VariationInterface } from '../../../modules/variation/interfaces/variat
 import variationService from '../../../modules/variation/services/variation.service';
 import VariationCard from './VariationCard';
 
-export default function ProductVariations() {
+export default function ProductVariationsPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState<ProductInterface>();
   const [variationsOptions, setVariationsOptions] = useState([]);

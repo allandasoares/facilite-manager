@@ -36,6 +36,16 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
         </Button>
       ),
     },
+    {
+      header: 'Ações',
+      accessor: (item: any) => (
+        <Button
+          onClick={() => navigate(`/products/edit/${item.id}`)}
+        >
+          Editar
+        </Button>
+      ),
+    },
   ];
 
   return <Table data={products} columns={columns} />;

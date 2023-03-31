@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import TextField from '../../../components/form/TextField';
+import TextField from '../../components/form/TextField';
 
 const VariationForm = ({ formik }: any) => (
     <form onSubmit={formik.handleSubmit}>
