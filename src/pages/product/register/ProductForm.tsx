@@ -1,8 +1,7 @@
-import { SimpleGrid } from "@chakra-ui/react";
-import TextField from "../../../components/form/TextField";
+import { SimpleGrid } from '@chakra-ui/react';
+import TextField from '../../../components/form/TextField';
 
-const ProductForm = ({ formik }: any) => {
-  return (
+const ProductForm = ({ formik }: any) => (
     <form onSubmit={formik.handleSubmit}>
       <SimpleGrid columns={2} spacing={10}>
         <TextField id="name" label="Nome do produto" formik={formik} />
@@ -14,7 +13,6 @@ const ProductForm = ({ formik }: any) => {
         <TextField id="supplierId" label="Fornecedor" type="number" formik={formik} />
       </SimpleGrid>
     </form>
-  );
-};
+);
 
 export default ProductForm;

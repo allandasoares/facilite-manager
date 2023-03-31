@@ -1,7 +1,8 @@
-import { VStack } from "@chakra-ui/react";
-import BaseCardWithForm from "./BaseCardWithForm";
-import { Text, chakra, Icon } from "@chakra-ui/react";
-import { MdAddCircleOutline } from "react-icons/md";
+import {
+  VStack, Text, chakra, Icon,
+} from '@chakra-ui/react';
+import { MdAddCircleOutline } from 'react-icons/md';
+import BaseCardWithForm from './BaseCardWithForm';
 
 export default function AddNewCard({
   editState,
@@ -21,8 +22,8 @@ export default function AddNewCard({
         alignItems="center"
         onClick={() => setEditState({ id: 0, edit: true })}
       >
-        <chakra.a display={"flex"}>
-          <Icon as={MdAddCircleOutline} h={8} w={8} alignSelf={"center"} />
+        <chakra.a display={'flex'}>
+          <Icon as={MdAddCircleOutline} h={8} w={8} alignSelf={'center'} />
         </chakra.a>
         <Text fontSize="medium">Criar nova opção</Text>
       </VStack>

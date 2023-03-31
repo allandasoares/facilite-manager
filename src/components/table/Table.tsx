@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Table as ChakraTable,
   TableContainer,
@@ -7,7 +7,7 @@ import {
   Tr,
   Th,
   Td,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface Column {
   header: string;
@@ -19,8 +19,7 @@ interface TableProps {
   columns: Column[];
 }
 
-const Table: React.FC<TableProps> = ({ data, columns }) => {
-  return (
+const Table: React.FC<TableProps> = ({ data, columns }) => (
     <TableContainer>
       <ChakraTable size="sm">
         <Thead>
@@ -35,7 +34,7 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
             <Tr key={index}>
               {columns.map((column, colIndex) => (
                 <Td key={colIndex}>
-                  {typeof column.accessor === "function"
+                  {typeof column.accessor === 'function'
                     ? column.accessor(item)
                     : item[column.accessor]}
                 </Td>
@@ -45,7 +44,6 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
         </Tbody>
       </ChakraTable>
     </TableContainer>
-  );
-};
+);
 
 export default Table;

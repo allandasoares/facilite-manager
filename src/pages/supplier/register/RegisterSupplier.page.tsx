@@ -1,46 +1,40 @@
-import { Box, Card, SimpleGrid, Heading, Button } from "@chakra-ui/react";
-import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { CreateSupplierInterface } from "../../../modules/supplier/interfaces/create-supplier.interface";
-import supplierService from "../../../modules/supplier/services/supplier.service";
-import { createSupplierValidator } from "../../../modules/supplier/validators/create-supplier.validator";
-import { useEffect } from "react";
-import SupplierForm from "./SupplierForm";
+import {
+  Box, Card, Heading, Button,
+} from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import { useMutation } from 'react-query';
+import { CreateSupplierInterface } from '../../../modules/supplier/interfaces/create-supplier.interface';
+import supplierService from '../../../modules/supplier/services/supplier.service';
+import createSupplierValidator from '../../../modules/supplier/validators/create-supplier.validator';
+import SupplierForm from './SupplierForm';
 
 const initialValues: CreateSupplierInterface = {
-  companyName: "Empresa Teste",
-  tradingName: "Empresinha",
-  cnpj: "1234567892",
-  email: "a2@a.com",
-  phoneNumber: "1934353705",
-  mobileNumber: "19983136930",
-  street: "Rua dos amores",
-  number: "127",
-  neighborhood: "São Jorge",
-  city: "Piracicaba",
-  state: "São Paulo",
-  zipCode: "13402803",
-  segment: "Metalorgico",
-  website: "https://google.com",
-  description: "descricao",
-  logo: "logo",
+  companyName: 'Empresa Teste',
+  tradingName: 'Empresinha',
+  cnpj: '1234567892',
+  email: 'a2@a.com',
+  phoneNumber: '1934353705',
+  mobileNumber: '19983136930',
+  street: 'Rua dos amores',
+  number: '127',
+  neighborhood: 'São Jorge',
+  city: 'Piracicaba',
+  state: 'São Paulo',
+  zipCode: '13402803',
+  segment: 'Metalorgico',
+  website: 'https://google.com',
+  description: 'descricao',
+  logo: 'logo',
 };
 
 export default function RegisterSupplier() {
-  const navigate = useNavigate();
-
-  const handleOnSubmit = async () => {
-    try {
-      await supplierService.create(formik.values);
-      console.log("Deu certo");
-    } catch (error) {
-      console.log("Deu Ruim");
-    }
-  };
+  const { mutate } = useMutation(supplierService.create, {
+    onSuccess: () => {},
+  });
 
   const formik = useFormik({
-    initialValues: initialValues,
-    onSubmit: handleOnSubmit,
+    initialValues,
+    onSubmit: () => { mutate(formik.values); },
     validationSchema: createSupplierValidator,
   });
 

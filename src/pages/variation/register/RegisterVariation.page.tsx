@@ -1,30 +1,25 @@
-import { Box, Card, Heading, Button } from "@chakra-ui/react";
-import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { CreateVariationInterface } from "../../../modules/variation/interfaces/create-variation.interface";
-import variationService from "../../../modules/variation/services/variation.service";
-import { createVariationValidator } from "../../../modules/variation/validators/create-variation.validator";
-import VariationForm from "./VariationForm";
+import {
+  Box, Card, Heading, Button,
+} from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import { useMutation } from 'react-query';
+import { CreateVariationInterface } from '../../../modules/variation/interfaces/create-variation.interface';
+import variationService from '../../../modules/variation/services/variation.service';
+import createVariationValidator from '../../../modules/variation/validators/create-variation.validator';
+import VariationForm from './VariationForm';
 
 const initialValues: CreateVariationInterface = {
-  name: "Cor",
+  name: 'Cor',
 };
 
 export default function RegisterVariation() {
-  const navigate = useNavigate();
-
-  const handleOnSubmit = async () => {
-    try {
-      await variationService.create(formik.values);
-      console.log("Deu certo");
-    } catch (error) {
-      console.log("Deu Ruim");
-    }
-  };
+  const { mutate } = useMutation(variationService.create, {
+    onSuccess: () => {},
+  });
 
   const formik = useFormik({
-    initialValues: initialValues,
-    onSubmit: handleOnSubmit,
+    initialValues,
+    onSubmit: () => { mutate(formik.values); },
     validationSchema: createVariationValidator,
   });
 

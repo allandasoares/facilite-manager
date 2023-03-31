@@ -1,51 +1,46 @@
-import { Box, Card, Heading, Button } from "@chakra-ui/react";
-import { useFormik } from "formik";
-import SupplierCategoryForm from "./SupplierCategoryForm";
-import { CreateSupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/create-supplier-category.interface";
-import supplierCategoryService from "../../../modules/supplier-category/services/supplier-category.service";
-import { useEffect, useState } from "react";
-import { SupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/supplier-category.interface";
-import { createSupplierCategoryValidator } from "../../../modules/supplier-category/validators/create-supplier-category.validator";
+import {
+  Box, Card, Heading, Button,
+} from '@chakra-ui/react';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import SupplierCategoryForm from './SupplierCategoryForm';
+import { CreateSupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/create-supplier-category.interface';
+import supplierCategoryService from '../../../modules/supplier-category/services/supplier-category.service';
+import { SupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/supplier-category.interface';
+import createSupplierCategoryValidator from '../../../modules/supplier-category/validators/create-supplier-category.validator';
 
 const initialValues: CreateSupplierCategoryInterface = {
-  name: "",
+  name: '',
   parentId: null,
 };
 
 export default function RegisterSupplierCategory() {
-  const handleOnSubmit = async () => {
-    try {
-      console.log(formik.values);
-      await supplierCategoryService.create(formik.values);
-      console.log("Deu certo");
-    } catch (error) {
-      console.log("Deu Ruim");
-    }
-  };
+  const { mutate } = useMutation(supplierCategoryService.create, {
+    onSuccess: () => {},
+  });
 
   const formik = useFormik({
-    initialValues: initialValues,
-    onSubmit: handleOnSubmit,
+    initialValues,
+    onSubmit: () => { mutate(formik.values); },
     validationSchema: createSupplierCategoryValidator,
   });
   const [suppliersCategories, setSuppliersCategories] = useState<
-    SupplierCategoryInterface[]
+  SupplierCategoryInterface[]
   >([]);
 
   useEffect(() => {
     supplierCategoryService
       .getAll()
       .then((response: any) => {
-        const res = response.data.data.map((item: any) => {
-          return {
-            id: item.id,
-            label: item.name,
-          };
-        });
+        const res = response.data.data.map((item: any) => ({
+          id: item.id,
+          label: item.name,
+        }));
         setSuppliersCategories(res);
       })
       .catch((error: any) => {
-        console.log("Deu erro aqui em", error);
+        console.log('Deu erro aqui em', error);
       });
   }, []);
 

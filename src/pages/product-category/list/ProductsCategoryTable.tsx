@@ -1,7 +1,7 @@
-import React from "react";
-import Table from "../../../components/table/Table";
-import { MdOutlineCheck, MdOutlineClose } from "react-icons/md";
-import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
+import React from 'react';
+import { MdOutlineCheck, MdOutlineClose } from 'react-icons/md';
+import Table from '../../../components/table/Table';
+import { ProductCategoryInterface } from '../../../modules/product-category/interfaces/supplier-product.interface';
 
 interface ProductsCategoryTableProps {
   productsCategories: ProductCategoryInterface[] | undefined;
@@ -14,12 +14,11 @@ const ProductsCategoryTable: React.FC<ProductsCategoryTableProps> = ({
     return <div>Loading...</div>;
   }
   const columns = [
-    { header: "Nome", accessor: "name" },
-    { header: "Pai", accessor: (item: any) => item.parent?.name || "-" },
+    { header: 'Nome', accessor: 'name' },
+    { header: 'Pai', accessor: (item: any) => item.parent?.name || '-' },
     {
-      header: "Ativo",
-      accessor: (item: any) =>
-        item.active ? <MdOutlineCheck /> : <MdOutlineClose />,
+      header: 'Ativo',
+      accessor: (item: any) => (item.active ? <MdOutlineCheck /> : <MdOutlineClose />),
     },
   ];
 

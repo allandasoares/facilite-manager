@@ -1,13 +1,15 @@
-import { Box, Button, Card, WrapItem } from "@chakra-ui/react";
-import supplierService from "../../../modules/supplier/services/supplier.service";
-import SupplierTable from "./SuppliersTable.page";
-import { MdAddCircle } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
+import {
+  Box, Button, Card, WrapItem,
+} from '@chakra-ui/react';
+import { MdAddCircle } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import SupplierTable from './SuppliersTable.page';
+import supplierService from '../../../modules/supplier/services/supplier.service';
 
 export default function ListSuppliers() {
   const navigate = useNavigate();
-  const { data } = useQuery("suppliers", supplierService.getAll);
+  const { data } = useQuery('suppliers', supplierService.getAll);
 
   return (
     <Box w="100%" h="100vh">
@@ -16,7 +18,7 @@ export default function ListSuppliers() {
           leftIcon={<MdAddCircle />}
           colorScheme="green"
           mb={4}
-          onClick={() => navigate("/suppliers/new")}
+          onClick={() => navigate('/suppliers/new')}
         >
           Novo
         </Button>

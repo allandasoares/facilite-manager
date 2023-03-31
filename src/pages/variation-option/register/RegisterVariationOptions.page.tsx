@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Badge,
   Box,
@@ -8,122 +8,101 @@ import {
   Stack,
   Text,
   VStack,
-  chakra,
-  Icon,
-  Input,
-  IconButton,
-  CheckboxIcon,
-} from "@chakra-ui/react";
-import { VariationOptionsInterface } from "../../../modules/variation-option/interfaces/variation-options.interface";
-import { VariationInterface } from "../../../modules/variation/interfaces/variation.interface";
-import variationService from "../../../modules/variation/services/variation.service";
-import { MdAddCircleOutline, MdCancel } from "react-icons/md";
-import variationOptionsService from "../../../modules/variation-option/services/variation-option.service";
-import BaseCardWithForm from "./BaseCardWithForm";
-import AddNewCard from "./AddNewCard";
+} from '@chakra-ui/react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { VariationOptionsInterface } from '../../../modules/variation-option/interfaces/variation-options.interface';
+import variationOptionsService from '../../../modules/variation-option/services/variation-option.service';
+import BaseCardWithForm from './BaseCardWithForm';
+import AddNewCard from './AddNewCard';
+import { CreateVariationOptionInterface } from '../../../modules/variation-option/interfaces/create-variation-option.interface';
+import variationService from '../../../modules/variation/services/variation.service';
 
+interface EditState {
+  id: number | null;
+  edit: boolean;
+}
 export default function RegisterVariationOptions() {
+  const queryClient = useQueryClient();
   const { variationId } = useParams();
-  const [variationOptions, setVariationOptions] = useState<
-    VariationOptionsInterface[]
-  >([]);
-  const [variation, setVariation] = useState<VariationInterface>();
-  const [editState, setEditState] = useState<{
-    id: number | null;
-    edit: boolean;
-  }>({
+  const [editState, setEditState] = useState<EditState>({
     id: null,
     edit: false,
   });
-  const saveVariationOption = (name: string) => {
-    variationOptionsService
-      .create({
-        name,
-        variationId: +variationId!,
-      })
-      .then((response) => {
-        setVariationOptions([...variationOptions, response.data.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const updateVariationOption = (name: string, id: number) => {
-    variationOptionsService
-      .update(id, {
-        name,
-        variationId: +variationId!,
-      })
-      .then((response) => {
-        setVariationOptions(
-          variationOptions.map((variationOption) =>
-            variationOption.id === id ? response.data.data : variationOption
-          )
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const { mutate: saveVariationOption } = useMutation(
+    (data: CreateVariationOptionInterface) => variationOptionsService.create({
+      name: data.name,
+      variationId: +variationId!,
+    }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['variation-options', variationId!]);
+      },
+    },
+  );
 
-  useEffect(() => {
-    if (!variationId) return;
+  const { mutate: updateVariationOption } = useMutation(
+    (data: any) => variationOptionsService.update(
+      data.variationOptionId!,
+      {
+        name: data.name,
+        variationId: +variationId!,
+      },
+    ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['variation-options', variationId!]);
+      },
+    },
+  );
 
-    variationService
-      .getOne(+variationId)
-      .then((response) => {
-        setVariation(response.data.data);
-        setVariationOptions(response.data.data.variationsOptions);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [variationId]);
+  const { data: variationsRes } = useQuery(['variation-options', variationId], () => variationService.getOne(+variationId!));
 
   return (
     <Box w="100%" h="100vh">
       <VStack spacing={4} align="start">
         <Heading as="h1" size="lg">
-          {`Variação: ${variation?.name}`}
+          {`Variação: ${variationsRes?.data?.data.name}`}
         </Heading>
         <Flex justifyContent="start" wrap="wrap" w="100%">
-          <AddNewCard editState={editState} setEditState={setEditState} onSave={saveVariationOption}/>
-          {variationOptions.map(
-            (variationOption: VariationOptionsInterface) => (
-              <BaseCardWithForm
-                key={variationOption.id}
-                editState={editState}
-                setEditState={setEditState}
-                onSave={updateVariationOption}
-                variationOptionId={variationOption.id}
-                variationOptionName={variationOption.name}
-              >
-                <Stack
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  onClick={() =>
-                    setEditState({ id: variationOption.id, edit: true })
-                  }
+          <AddNewCard
+            editState={editState}
+            setEditState={setEditState}
+            onSave={saveVariationOption}/>
+            {variationsRes?.data?.data.variationsOptions.map(
+              (variationOption: VariationOptionsInterface) => (
+                <BaseCardWithForm
+                  key={variationOption.id}
+                  editState={editState}
+                  setEditState={setEditState}
+                  onSave={updateVariationOption}
+                  variationOptionId={variationOption.id}
+                  variationOptionName={variationOption.name}
                 >
-                  <Text fontWeight="bold" fontSize="xl">
-                    {variationOption.name}
-                  </Text>
-                  <Badge
-                    borderRadius="full"
-                    px={2}
-                    colorScheme={variationOption.active ? "green" : "red"}
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    onClick={() => setEditState({ id: variationOption.id, edit: true })
+                    }
                   >
-                    {variationOption.active ? "Ativo" : "Inativo"}
-                  </Badge>
-                </Stack>
-                <Text fontSize="sm" mt={2}>
-                  Criado em:{" "}
-                  {new Date(variationOption.createdAt!).toLocaleString()}
-                </Text>
-              </BaseCardWithForm>
-            )
-          )}
+                    <Text fontWeight="bold" fontSize="xl">
+                      {variationOption.name}
+                    </Text>
+                    <Badge
+                      borderRadius="full"
+                      px={2}
+                      colorScheme={variationOption.active ? 'green' : 'red'}
+                    >
+                      {variationOption.active ? 'Ativo' : 'Inativo'}
+                    </Badge>
+                  </Stack>
+                  <Text fontSize="sm" mt={2}>
+                    Criado em:{' '}
+                    {new Date(variationOption.createdAt!).toLocaleString()}
+                  </Text>
+                </BaseCardWithForm>
+              ),
+            )}
         </Flex>
       </VStack>
     </Box>

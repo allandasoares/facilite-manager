@@ -1,20 +1,24 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/home/Home.page";
-import Login from "../pages/login/Login.page";
-import ListSuppliers from "../pages/supplier/list/ListSuppliers.page";
-import ListSuppliersCategory from "../pages/supplier-category/list/ListSuppliersCategory.page";
-import RegisterSupplier from "../pages/supplier/register/RegisterSupplier.page";
-import PrivateRoutes from "./PrivateRoutes";
-import RegisterSupplierCategory from "../pages/supplier-category/register/RegisterSupplierCategory.page";
-import ListProducts from "../pages/product/list/ListProducts.page";
-import RegisterProduct from "../pages/product/register/RegisterProduct.page";
-import TopBar from "../components/layout/TopBar";
-import ListProductsCategory from "../pages/product-category/list/ListProductsCategory.page";
-import RegisterProductCategory from "../pages/product-category/register/RegisterProductCategory.page";
-import ListVariations from "../pages/variation/list/ListVariations.page";
-import RegisterVariation from "../pages/variation/register/RegisterVariation.page";
-import RegisterVariationOptions from "../pages/variation-option/register/RegisterVariationOptions.page";
-import ProductVariations from "../pages/product/variation/ProductVariations.page";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from '../pages/home/Home.page';
+import Login from '../pages/login/Login.page';
+import ListSuppliers from '../pages/supplier/list/ListSuppliers.page';
+import ListSuppliersCategory from '../pages/supplier-category/list/ListSuppliersCategory.page';
+import RegisterSupplier from '../pages/supplier/register/RegisterSupplier.page';
+import PrivateRoutes from './PrivateRoutes';
+import RegisterSupplierCategory from '../pages/supplier-category/register/RegisterSupplierCategory.page';
+import ListProducts from '../pages/product/list/ListProducts.page';
+import RegisterProduct from '../pages/product/register/RegisterProduct.page';
+import TopBar from '../components/layout/TopBar';
+import ListProductsCategory from '../pages/product-category/list/ListProductsCategory.page';
+import RegisterProductCategory from '../pages/product-category/register/RegisterProductCategory.page';
+import ListVariations from '../pages/variation/list/ListVariations.page';
+import RegisterVariation from '../pages/variation/register/RegisterVariation.page';
+import RegisterVariationOptions from '../pages/variation-option/register/RegisterVariationOptions.page';
+import ProductVariations from '../pages/product/variation/ProductVariations.page';
+
+function RouteWithSideMenu(component: JSX.Element) {
+  return <TopBar>{component}</TopBar>;
+}
 
 export default function Router() {
   return (
@@ -76,8 +80,4 @@ export default function Router() {
       </Routes>
     </BrowserRouter>
   );
-}
-
-function RouteWithSideMenu(component: JSX.Element) {
-  return <TopBar>{component}</TopBar>;
 }

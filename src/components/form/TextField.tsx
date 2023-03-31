@@ -3,17 +3,16 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 const TextField = ({
   id,
   label,
-  type = "text",
+  type = 'text',
   isRequired = true,
   formik,
   ...props
-}: any) => {
-  return (
+}: any) => (
     <FormControl
       id={id}
       isRequired={isRequired}
@@ -23,7 +22,6 @@ const TextField = ({
       <Input type={type} {...formik.getFieldProps(id)} {...props} />
       <FormErrorMessage>{formik.errors[id]}</FormErrorMessage>
     </FormControl>
-  );
-};
+);
 
 export default TextField;

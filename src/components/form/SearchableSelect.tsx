@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Input,
@@ -9,9 +9,9 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
-} from "@chakra-ui/react";
-import { MdOutlineClose } from "react-icons/md";
-import { useCombobox } from "downshift";
+} from '@chakra-ui/react';
+import { MdOutlineClose } from 'react-icons/md';
+import { useCombobox } from 'downshift';
 
 type Item = {
   id: number;
@@ -42,15 +42,15 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
     reset,
   } = useCombobox<Item>({
     items,
-    itemToString: (item) => (item ? item.label : ""),
+    itemToString: (item) => (item ? item.label : ''),
     onSelectedItemChange: (changes) => {
-      if(!changes.selectedItem) return;
+      if (!changes.selectedItem) return;
       formik.setFieldValue(id, changes.selectedItem.id);
     },
   });
 
-  const filteredItems = items.filter((item) =>
-    item.label.toLowerCase().includes(inputValue.toLowerCase())
+  const filteredItems = items.filter(
+    (item) => item.label.toLowerCase().includes(inputValue.toLowerCase()),
   );
 
   const handleClearSelection = () => {
@@ -63,7 +63,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
       <FormLabel>{label}</FormLabel>
       <Box position="relative">
         <InputGroup>
-          <Input {...getInputProps({ name: id, id: id })} />
+          <Input {...getInputProps({ name: id, id })} />
           {selectedItem && (
             <InputRightElement>
               <IconButton
@@ -83,20 +83,20 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
           mt={1}
           overflow="auto"
           zIndex={1000}
-          display={isOpen ? "block" : "none"}
+          display={isOpen ? 'block' : 'none'}
           maxH="200px"
           width="100%"
         >
-          {isOpen &&
-            filteredItems.map((filteredItem, index) => {
+          {isOpen
+            && filteredItems.map((filteredItem) => {
               const originalIndex = items.findIndex(
-                (item) => item.id === filteredItem.id
+                (item) => item.id === filteredItem.id,
               );
 
               return (
                 <ListItem
                   key={filteredItem.id}
-                  bg={highlightedIndex === originalIndex ? "blue.100" : "white"}
+                  bg={highlightedIndex === originalIndex ? 'blue.100' : 'white'}
                   px={4}
                   py={2}
                   {...getItemProps({ item: filteredItem, index: originalIndex })}

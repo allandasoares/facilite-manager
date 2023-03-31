@@ -1,14 +1,16 @@
-import { Box, Button, Card, WrapItem } from "@chakra-ui/react";
-import { MdAddCircle } from "react-icons/md";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import productService from "../../../modules/product/services/product.service";
-import ProductsTable from "./ProductsTable";
+import {
+  Box, Button, Card, WrapItem,
+} from '@chakra-ui/react';
+import { MdAddCircle } from 'react-icons/md';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import productService from '../../../modules/product/services/product.service';
+import ProductsTable from './ProductsTable';
 
 export default function ListProducts() {
   const navigate = useNavigate();
 
-  const { data } = useQuery("products", productService.getAll);
+  const { data } = useQuery('products', productService.getAll);
 
   return (
     <Box w="100%" h="100vh">
@@ -17,7 +19,7 @@ export default function ListProducts() {
           leftIcon={<MdAddCircle />}
           colorScheme="green"
           mb={4}
-          onClick={() => navigate("/products/new")}
+          onClick={() => navigate('/products/new')}
         >
           Novo
         </Button>

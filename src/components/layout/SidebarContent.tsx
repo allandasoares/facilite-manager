@@ -1,10 +1,12 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, CloseButton, Flex, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
-import { FiCompass, FiHome, FiSettings, FiStar, FiTrendingUp } from "react-icons/fi";
-import NavItem from "./NavItem";
+import { useNavigate } from 'react-router-dom';
+import {
+  Box, CloseButton, Flex, Text, useColorModeValue,
+} from '@chakra-ui/react';
+import { IconType } from 'react-icons';
+import {
+  FiCompass, FiHome, FiSettings, FiStar, FiTrendingUp,
+} from 'react-icons/fi';
+import NavItem from './NavItem';
 
 export interface LinkItemProps {
   name: string;
@@ -13,12 +15,12 @@ export interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome, url: "/" },
-  { name: "Fornecedores", icon: FiTrendingUp, url: "/suppliers" },
-  { name: "Cat. Fonecedores", icon: FiCompass, url: "/suppliers-categories" },
-  { name: "Produtos", icon: FiStar, url: "/products" },
-  { name: "Cat. Produtos", icon: FiSettings, url: "/products-categories" },
-  { name: "Variações", icon: FiSettings, url: "/variations" },
+  { name: 'Home', icon: FiHome, url: '/' },
+  { name: 'Fornecedores', icon: FiTrendingUp, url: '/suppliers' },
+  { name: 'Cat. Fonecedores', icon: FiCompass, url: '/suppliers-categories' },
+  { name: 'Produtos', icon: FiStar, url: '/products' },
+  { name: 'Cat. Produtos', icon: FiSettings, url: '/products-categories' },
+  { name: 'Variações', icon: FiSettings, url: '/variations' },
 ];
 
 interface SidebarProps {
@@ -31,10 +33,10 @@ export default function SidebarContent({ onClose, display }: SidebarProps) {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       display={display}
@@ -43,7 +45,7 @@ export default function SidebarContent({ onClose, display }: SidebarProps) {
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Facilite
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem

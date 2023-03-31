@@ -1,4 +1,6 @@
-import { Button, Divider, Link, Text, useColorMode } from "@chakra-ui/react";
+import {
+  Button, Text, useColorMode,
+} from '@chakra-ui/react';
 
 export default function Home() {
   const { toggleColorMode } = useColorMode();
