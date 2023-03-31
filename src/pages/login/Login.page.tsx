@@ -10,18 +10,18 @@ import {
   useColorModeValue,
   Center,
   Divider,
-} from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
-import { useMutation } from 'react-query';
-import TextField from '../../components/form/TextField';
-import loginService from '../../modules/auth/services/auth.service';
-import loginValidator from '../../modules/auth/validators/login.validator';
+} from "@chakra-ui/react";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { useMutation } from "react-query";
+import TextField from "../../components/form/TextField";
+import loginService from "../../modules/auth/services/auth.service";
+import loginValidator from "../../modules/auth/validators/login.validator";
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 export default function Login() {
@@ -29,8 +29,8 @@ export default function Login() {
 
   const { mutate } = useMutation(loginService.login, {
     onSuccess: (data) => {
-      localStorage.setItem('token', data.data.data);
-      navigate('/home');
+      localStorage.setItem("token", data.data.data);
+      navigate("/home");
     },
   });
 
@@ -44,22 +44,22 @@ export default function Login() {
 
   return (
     <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
     >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Login Facilite Manager</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            feito por <Link color={'blue.400'}>Matheus e Allanda</Link> ✌️
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Login Facilite Manager</Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            feito por <Link color={"blue.400"}>Matheus e Allanda</Link> ✌️
           </Text>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
           p={8}
         >
           <form onSubmit={formik.handleSubmit}>
@@ -78,19 +78,19 @@ export default function Login() {
               />
               <Stack spacing={10}>
                 <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}
                 >
                   <Checkbox>Lembrar-me</Checkbox>
-                  <Link color={'blue.400'}>Esqueci minha senha</Link>
+                  <Link color={"blue.400"}>Esqueci minha senha</Link>
                 </Stack>
                 <Button
                   type="submit"
-                  bg={'blue.400'}
-                  color={'white'}
+                  bg={"blue.400"}
+                  color={"white"}
                   _hover={{
-                    bg: 'blue.500',
+                    bg: "blue.500",
                   }}
                 >
                   Entrar
@@ -103,7 +103,7 @@ export default function Login() {
                   <Divider borderColor="gray.300" flex="1" />
                 </Flex>
                 {/* Google */}
-                <Button w={'full'} variant={'outline'} leftIcon={<FcGoogle />}>
+                <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
                   <Center>
                     <Text>Entre com o Google</Text>
                   </Center>

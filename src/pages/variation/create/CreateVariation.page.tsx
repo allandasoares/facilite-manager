@@ -1,15 +1,13 @@
-import {
-  Box, Card, Heading, Button,
-} from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import { useMutation } from 'react-query';
-import { CreateVariationInterface } from '../../../modules/variation/interfaces/create-variation.interface';
-import variationService from '../../../modules/variation/services/variation.service';
-import createVariationValidator from '../../../modules/variation/validators/create-variation.validator';
-import VariationForm from '../VariationForm';
+import { Box, Card, Heading, Button } from "@chakra-ui/react";
+import { useFormik } from "formik";
+import { useMutation } from "react-query";
+import { CreateVariationInterface } from "../../../modules/variation/interfaces/create-variation.interface";
+import variationService from "../../../modules/variation/services/variation.service";
+import createVariationValidator from "../../../modules/variation/validators/create-variation.validator";
+import VariationForm from "../VariationForm";
 
 const initialValues: CreateVariationInterface = {
-  name: 'Cor',
+  name: "Cor",
 };
 
 export default function CreateVariationPage() {
@@ -19,7 +17,9 @@ export default function CreateVariationPage() {
 
   const formik = useFormik({
     initialValues,
-    onSubmit: () => { mutate(formik.values); },
+    onSubmit: () => {
+      mutate(formik.values);
+    },
     validationSchema: createVariationValidator,
   });
 

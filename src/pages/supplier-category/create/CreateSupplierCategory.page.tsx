@@ -1,17 +1,15 @@
-import {
-  Box, Card, Heading, Button,
-} from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
-import SupplierCategoryForm from '../SupplierCategoryForm';
-import { CreateSupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/create-supplier-category.interface';
-import supplierCategoryService from '../../../modules/supplier-category/services/supplier-category.service';
-import { SupplierCategoryInterface } from '../../../modules/supplier-category/interfaces/supplier-category.interface';
-import createSupplierCategoryValidator from '../../../modules/supplier-category/validators/create-supplier-category.validator';
+import { Box, Card, Heading, Button } from "@chakra-ui/react";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { useMutation } from "react-query";
+import SupplierCategoryForm from "../SupplierCategoryForm";
+import { CreateSupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/create-supplier-category.interface";
+import supplierCategoryService from "../../../modules/supplier-category/services/supplier-category.service";
+import { SupplierCategoryInterface } from "../../../modules/supplier-category/interfaces/supplier-category.interface";
+import createSupplierCategoryValidator from "../../../modules/supplier-category/validators/create-supplier-category.validator";
 
 const initialValues: CreateSupplierCategoryInterface = {
-  name: '',
+  name: "",
   parentId: null,
 };
 
@@ -22,11 +20,13 @@ export default function CreateSupplierCategoryPage() {
 
   const formik = useFormik({
     initialValues,
-    onSubmit: () => { mutate(formik.values); },
+    onSubmit: () => {
+      mutate(formik.values);
+    },
     validationSchema: createSupplierCategoryValidator,
   });
   const [suppliersCategories, setSuppliersCategories] = useState<
-  SupplierCategoryInterface[]
+    SupplierCategoryInterface[]
   >([]);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function CreateSupplierCategoryPage() {
         setSuppliersCategories(res);
       })
       .catch((error: any) => {
-        console.log('Deu erro aqui em', error);
+        console.log("Deu erro aqui em", error);
       });
   }, []);
 

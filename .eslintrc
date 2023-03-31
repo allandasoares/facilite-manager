@@ -3,12 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["airbnb-base", "airbnb-typescript/base"],
+  "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:prettier/recommended"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "overrides": [],
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "import/extensions": [
       "error",
@@ -26,6 +26,7 @@
       {
         "props": false
       }
-    ]
+    ],
+    "prettier/prettier": "error"
   }
 }

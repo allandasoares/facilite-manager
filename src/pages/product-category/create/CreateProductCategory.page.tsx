@@ -1,17 +1,15 @@
-import {
-  Box, Card, Heading, Button,
-} from '@chakra-ui/react';
-import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import productCategoryService from '../../../modules/product-category/services/product-category.service';
-import createProductCategoryValidator from '../../../modules/product-category/validators/create-product-category.validator';
-import { CreateProductCategoryInterface } from '../../../modules/product-category/interfaces/create-product-category.interface';
-import ProductCategoryForm from '../ProductCategoryForm';
-import { ProductCategoryInterface } from '../../../modules/product-category/interfaces/supplier-product.interface';
+import { Box, Card, Heading, Button } from "@chakra-ui/react";
+import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import productCategoryService from "../../../modules/product-category/services/product-category.service";
+import createProductCategoryValidator from "../../../modules/product-category/validators/create-product-category.validator";
+import { CreateProductCategoryInterface } from "../../../modules/product-category/interfaces/create-product-category.interface";
+import ProductCategoryForm from "../ProductCategoryForm";
+import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
 
 const initialValues: CreateProductCategoryInterface = {
-  name: '',
+  name: "",
   parentId: null,
 };
 
@@ -21,24 +19,25 @@ export default function CreateProductCategoryPage() {
   });
   const formik = useFormik({
     initialValues,
-    onSubmit: () => { mutate(formik.values); },
+    onSubmit: () => {
+      mutate(formik.values);
+    },
     validationSchema: createProductCategoryValidator,
   });
   const [productsCategories, setProductsCategories] = useState<
-  ProductCategoryInterface[]
+    ProductCategoryInterface[]
   >([]);
 
   const { data: productCategoriesForSelect } = useQuery(
-    'products-category',
+    "products-category",
     productCategoryService.getAll,
     {
-      select: (data) => data.data.data.map(
-        (productCategory: ProductCategoryInterface) => ({
+      select: (data) =>
+        data.data.data.map((productCategory: ProductCategoryInterface) => ({
           id: productCategory.id,
           label: productCategory.name,
-        }),
-      ),
-    },
+        })),
+    }
   );
   useEffect(() => {
     if (!productCategoriesForSelect) return;

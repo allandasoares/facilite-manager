@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   let auth = true; // determine if authorized, from context or however you're doing it
 
   if (!token) auth = false;

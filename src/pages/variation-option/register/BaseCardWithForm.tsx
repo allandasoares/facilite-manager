@@ -1,8 +1,6 @@
-import {
-  Box, Flex, IconButton, Input,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { MdAddCircleOutline, MdCancel } from 'react-icons/md';
+import { Box, Flex, IconButton, Input } from "@chakra-ui/react";
+import { useState } from "react";
+import { MdAddCircleOutline, MdCancel } from "react-icons/md";
 
 function BaseCard({ children, ...rest }: any) {
   return (
@@ -14,14 +12,14 @@ function BaseCard({ children, ...rest }: any) {
       p={4}
       m={2}
       backgroundColor="gray.50"
-      minWidth={{ base: '100%', sm: '45%', md: '30%' }}
-      width={{ base: '100%', sm: '45%', md: '30%' }}
+      minWidth={{ base: "100%", sm: "45%", md: "30%" }}
+      width={{ base: "100%", sm: "45%", md: "30%" }}
       _hover={{
-        boxShadow: 'xl',
-        backgroundColor: 'gray.200',
-        cursor: 'pointer',
-        transform: 'scale(1.02)',
-        transition: 'all 0.2s',
+        boxShadow: "xl",
+        backgroundColor: "gray.200",
+        cursor: "pointer",
+        transform: "scale(1.02)",
+        transition: "all 0.2s",
       }}
     >
       {children}
@@ -37,12 +35,12 @@ export default function BaseCardWithForm({
   variationOptionId,
   variationOptionName,
 }: any) {
-  const [name, setName] = useState(variationOptionName ?? '');
+  const [name, setName] = useState(variationOptionName ?? "");
 
   const handleSave = () => {
     onSave({ name, variationOptionId });
     setEditState({ id: null, edit: false });
-    setName('');
+    setName("");
   };
 
   return (
@@ -68,7 +66,7 @@ export default function BaseCardWithForm({
               icon={<MdCancel size={24} />}
               onClick={() => {
                 setEditState({ id: null, edit: false });
-                setName('');
+                setName("");
               }}
             />
           </Flex>
