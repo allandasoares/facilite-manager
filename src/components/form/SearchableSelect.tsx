@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Input,
@@ -31,6 +31,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   id,
   formik,
 }) => {
+  const initialItem = items.find((item) => item.id === formik.values[id]);
   const {
     isOpen,
     selectedItem,
@@ -40,6 +41,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
     getItemProps,
     inputValue,
     reset,
+    setInputValue,
   } = useCombobox<Item>({
     items,
     itemToString: (item) => (item ? item.label : ""),
@@ -47,7 +49,17 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
       if (!changes.selectedItem) return;
       formik.setFieldValue(id, changes.selectedItem.id);
     },
+    initialSelectedItem: initialItem ?? null,
   });
+
+  useEffect(() => {
+    const updatedItem = items.find((item) => item.id === formik.values[id]);
+    if (updatedItem) {
+      setInputValue(updatedItem.label);
+    } else {
+      setInputValue("");
+    }
+  }, [formik.values[id], items, setInputValue]);
 
   const filteredItems = items.filter((item) =>
     item.label.toLowerCase().includes(inputValue.toLowerCase())

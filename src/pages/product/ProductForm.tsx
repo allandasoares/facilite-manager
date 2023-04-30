@@ -1,7 +1,8 @@
 import { SimpleGrid } from "@chakra-ui/react";
+import SearchableSelect from "../../components/form/SearchableSelect";
 import TextField from "../../components/form/TextField";
 
-const ProductForm = ({ formik }: any) => (
+const ProductForm = ({ formik, productCategories, suppliers }: any) => (
   <form onSubmit={formik.handleSubmit}>
     <SimpleGrid columns={2} spacing={10}>
       <TextField id="name" label="Nome do produto" formik={formik} />
@@ -9,16 +10,16 @@ const ProductForm = ({ formik }: any) => (
       <TextField id="sku" label="SKU" formik={formik} />
       <TextField id="price" label="Preço" type="number" formik={formik} />
       <TextField id="image" label="Imagem" formik={formik} />
-      <TextField
+      <SearchableSelect
         id="productCategoryId"
         label="Categoria"
-        type="number"
+        items={productCategories}
         formik={formik}
       />
-      <TextField
+      <SearchableSelect
         id="supplierId"
         label="Fornecedor"
-        type="number"
+        items={suppliers}
         formik={formik}
       />
     </SimpleGrid>
