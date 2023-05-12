@@ -15,7 +15,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products }) => {
   }
   const columns = [
     { header: "Nome", accessor: "name" },
-    { header: "Descrição", accessor: "description" },
+    { header: "Subtitulo", accessor: "subtitle" },
     { header: "Preço", accessor: "price" },
     { header: "Preço Atualizado em", accessor: "priceUpdatedAt" },
     {

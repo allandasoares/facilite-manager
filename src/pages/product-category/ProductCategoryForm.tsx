@@ -13,6 +13,14 @@ const ProductCategoryForm = ({ formik, productsCategories }: any) => (
         formik={formik}
       />
     </SimpleGrid>
+    <SimpleGrid columns={1} spacing={10}>
+      <TextField
+        id="image"
+        label="Imagem (URL)"
+        isRequired={false}
+        formik={formik}
+      />
+    </SimpleGrid>
   </form>
 );
 

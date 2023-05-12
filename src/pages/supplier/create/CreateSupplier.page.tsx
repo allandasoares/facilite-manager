@@ -27,7 +27,9 @@ const initialValues: CreateSupplierInterface = {
 
 export default function CreateSupplierPage(): JSX.Element {
   const { mutate } = useMutation(supplierService.create, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      alert("Sucesso!");
+    },
   });
 
   const formik = useFormik({

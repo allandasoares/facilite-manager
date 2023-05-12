@@ -33,7 +33,9 @@ export default function UpdateSupplierPage() {
     (data: UpdateSupplierInterface) =>
       supplierService.update(+supplierId!, data),
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("Sucesso!");
+      },
     }
   );
   const { data } = useQuery(["supplier", supplierId], () =>

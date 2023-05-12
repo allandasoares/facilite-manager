@@ -1,11 +1,14 @@
 export type CreateProductInterface = {
   name: string;
   description: string;
-  sku: string;
+  subtitle: string;
+  brand: string;
   image?: string | null;
+  rating?: number;
   price: number;
   priceUpdatedAt?: string | Date;
-  supplierId: number;
-  productCategoryId: number;
+  productCategoryId: number | null;
+  supplierId: number | null;
   active?: boolean;
+  productFeatures?: any[];
 };

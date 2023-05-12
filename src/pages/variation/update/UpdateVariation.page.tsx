@@ -19,7 +19,9 @@ export default function UpdateVariationPage() {
         name: data.name,
       }),
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("Sucesso!");
+      },
     }
   );
   const { data } = useQuery(["variation", variationId], () =>

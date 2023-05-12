@@ -15,7 +15,9 @@ const initialValues: CreateSupplierCategoryInterface = {
 
 export default function CreateSupplierCategoryPage() {
   const { mutate } = useMutation(supplierCategoryService.create, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      alert("Sucesso!");
+    },
   });
 
   const formik = useFormik({

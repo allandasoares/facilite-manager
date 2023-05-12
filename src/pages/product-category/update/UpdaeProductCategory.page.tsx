@@ -12,6 +12,7 @@ import { UpdateProductCategoryInterface } from "../../../modules/product-categor
 const initialValues: UpdateProductCategoryInterface = {
   name: "",
   parentId: null,
+  image: "",
 };
 
 export default function UpdateProductCategoryPage() {
@@ -20,9 +21,13 @@ export default function UpdateProductCategoryPage() {
     (data: UpdateProductCategoryInterface) =>
       productCategoryService.update(+productCategoryId!, {
         name: data.name,
+        parentId: data.parentId,
+        image: data.image,
       }),
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("Sucesso!");
+      },
     }
   );
   const { data: productCategoryReq } = useQuery(

@@ -22,7 +22,7 @@ type SearchableSelectProps = {
   items: Item[];
   label: string;
   id: string;
-  formik: any; // Replace with the type of your formik instance
+  formik: any;
 };
 
 const SearchableSelect: React.FC<SearchableSelectProps> = ({
@@ -32,9 +32,12 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   formik,
 }) => {
   const initialItem = items.find((item) => item.id === formik.values[id]);
+  const [selectedItem, setSelectedItem] = React.useState<Item | null>(
+    initialItem ?? null
+  );
+
   const {
     isOpen,
-    selectedItem,
     getMenuProps,
     getInputProps,
     highlightedIndex,
@@ -48,12 +51,14 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
     onSelectedItemChange: (changes) => {
       if (!changes.selectedItem) return;
       formik.setFieldValue(id, changes.selectedItem.id);
+      setSelectedItem(changes.selectedItem);
     },
     initialSelectedItem: initialItem ?? null,
   });
 
   useEffect(() => {
     const updatedItem = items.find((item) => item.id === formik.values[id]);
+    setSelectedItem(updatedItem ?? null);
     if (updatedItem) {
       setInputValue(updatedItem.label);
     } else {

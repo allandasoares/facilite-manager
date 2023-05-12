@@ -20,6 +20,9 @@ import CreateVariationPage from "../pages/variation/create/CreateVariation.page"
 import CreateVariationOptionsPage from "../pages/variation-option/register/RegisterVariationOptions.page";
 import UpdateVariationPage from "../pages/variation/update/UpdateVariation.page";
 import ListSuppliersPage from "../pages/supplier/list/ListSuppliers.page";
+import ListFeaturesPage from "../pages/feature/list/ListFeatures.page";
+import CreateFeaturePage from "../pages/feature/create/CreateFeature.page";
+import UpdateFeaturePage from "../pages/feature/update/UpdaeFeature.page";
 
 function RouteWithSideMenu(component: JSX.Element) {
   return <TopBar>{component}</TopBar>;
@@ -100,6 +103,18 @@ export default function Router() {
           <Route
             path="/variations-options/variations/:variationId"
             element={RouteWithSideMenu(<CreateVariationOptionsPage />)}
+          />
+          <Route
+            path="/features"
+            element={RouteWithSideMenu(<ListFeaturesPage />)}
+          />
+          <Route
+            path="/features/new"
+            element={RouteWithSideMenu(<CreateFeaturePage />)}
+          />
+          <Route
+            path="/features/edit/:featureId"
+            element={RouteWithSideMenu(<UpdateFeaturePage />)}
           />
         </Route>
       </Routes>

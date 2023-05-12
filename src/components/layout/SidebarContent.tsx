@@ -8,11 +8,13 @@ import {
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import {
-  FiCompass,
+  FiBookmark,
+  FiBox,
   FiHome,
-  FiSettings,
-  FiStar,
-  FiTrendingUp,
+  FiPaperclip,
+  FiShuffle,
+  FiTag,
+  FiUsers,
 } from "react-icons/fi";
 import NavItem from "./NavItem";
 
@@ -24,11 +26,12 @@ export interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, url: "/" },
-  { name: "Fornecedores", icon: FiTrendingUp, url: "/suppliers" },
-  { name: "Cat. Fonecedores", icon: FiCompass, url: "/suppliers-categories" },
-  { name: "Produtos", icon: FiStar, url: "/products" },
-  { name: "Cat. Produtos", icon: FiSettings, url: "/products-categories" },
-  { name: "Variações", icon: FiSettings, url: "/variations" },
+  { name: "Fornecedores", icon: FiUsers, url: "/suppliers" },
+  { name: "Cat. Fonecedores", icon: FiTag, url: "/suppliers-categories" },
+  { name: "Produtos", icon: FiBox, url: "/products" },
+  { name: "Cat. Produtos", icon: FiPaperclip, url: "/products-categories" },
+  { name: "Variações", icon: FiShuffle, url: "/variations" },
+  { name: "Caracteristicas", icon: FiBookmark, url: "/features" },
 ];
 
 interface SidebarProps {

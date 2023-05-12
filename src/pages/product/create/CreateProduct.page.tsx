@@ -2,6 +2,8 @@ import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { FeatureInterface } from "../../../modules/feature/interfaces/feature.interface";
+import featureService from "../../../modules/feature/services/feature.service";
 import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
 import productCategoryCategoryService from "../../../modules/product-category/services/product-category.service";
 import { CreateProductInterface } from "../../../modules/product/interfaces/create-product.interface";
@@ -12,13 +14,15 @@ import supplierService from "../../../modules/supplier/services/supplier.service
 import ProductForm from "../ProductForm";
 
 const initialValues: CreateProductInterface = {
-  name: "Empresa Teste",
-  description: "Descrição da empresa",
-  sku: "123456",
-  price: 100,
-  image: "https://www.google.com.br",
-  productCategoryId: 1,
-  supplierId: 1,
+  name: "",
+  description: "",
+  subtitle: "",
+  brand: "",
+  price: 0,
+  image: "",
+  productCategoryId: null,
+  supplierId: null,
+  productFeatures: [],
 };
 
 export default function CreatProductPage() {
@@ -50,6 +54,18 @@ export default function CreatProductPage() {
     }
   );
 
+  const { data: featuresForSelect, isLoading: featureLoading } = useQuery(
+    "features",
+    () => featureService.getAll(),
+    {
+      select: (data) =>
+        data.data.data.map((item: FeatureInterface) => ({
+          label: item.name,
+          id: item.id,
+        })),
+    }
+  );
+
   const { mutate } = useMutation(productService.create, {
     onSuccess: () => {
       navigate("/products");
@@ -59,12 +75,17 @@ export default function CreatProductPage() {
   const formik = useFormik({
     initialValues,
     onSubmit: () => {
-      mutate(formik.values);
+      const featureIds = formik.values?.productFeatures?.map((item) => item.id);
+      mutate({
+        ...formik.values,
+        productFeatures: featureIds,
+      });
     },
     validationSchema: createProductValidator,
   });
 
-  if (productCategoriesLoading || supplierLoading) return <Box>Loading...</Box>;
+  if (productCategoriesLoading || supplierLoading || featureLoading)
+    return <Box>Loading...</Box>;
 
   return (
     <Box w="100%" h="100vh">
@@ -76,6 +97,7 @@ export default function CreatProductPage() {
           formik={formik}
           productCategories={productCategoriesForSelect}
           suppliers={suppliersForSelect}
+          productFeatures={featuresForSelect}
         />
         <Button
           colorScheme="blue"

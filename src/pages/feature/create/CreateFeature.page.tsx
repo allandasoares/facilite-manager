@@ -1,37 +1,37 @@
 import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation } from "react-query";
-import { CreateVariationInterface } from "../../../modules/variation/interfaces/create-variation.interface";
-import variationService from "../../../modules/variation/services/variation.service";
-import createVariationValidator from "../../../modules/variation/validators/create-variation.validator";
-import VariationForm from "../VariationForm";
+import featureService from "../../../modules/feature/services/feature.service";
+import createFeatureValidator from "../../../modules/feature/validators/create-feature.validator";
+import { CreateFeatureInterface } from "../../../modules/feature/interfaces/create-feature.interface";
+import FeatureForm from "../FeatureForm";
 
-const initialValues: CreateVariationInterface = {
-  name: "Cor",
+const initialValues: CreateFeatureInterface = {
+  name: "",
+  icon: "",
 };
 
-export default function CreateVariationPage() {
-  const { mutate } = useMutation(variationService.create, {
+export default function CreateFeaturePage() {
+  const { mutate } = useMutation(featureService.create, {
     onSuccess: () => {
       alert("Sucesso!");
     },
   });
-
   const formik = useFormik({
     initialValues,
     onSubmit: () => {
       mutate(formik.values);
     },
-    validationSchema: createVariationValidator,
+    validationSchema: createFeatureValidator,
   });
 
   return (
     <Box w="100%" h="100vh">
       <Card justify="center" p="30px">
         <Heading fontWeight="bold" size="md" mb={4}>
-          New variation
+          Nova Caracteristica
         </Heading>
-        <VariationForm formik={formik} />
+        <FeatureForm formik={formik} />
         <Button
           colorScheme="blue"
           mt="5"

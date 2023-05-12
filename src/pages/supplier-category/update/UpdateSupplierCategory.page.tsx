@@ -20,7 +20,9 @@ export default function UpdateSupplierCategoryPage() {
     (data: UpdateSupplierCategoryInterface) =>
       supplierCategoryService.update(+supplierCategoryId!, data),
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        alert("Sucesso!");
+      },
     }
   );
   const { data } = useQuery(["supplier-category", supplierCategoryId], () =>

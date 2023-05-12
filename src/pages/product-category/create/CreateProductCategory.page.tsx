@@ -11,11 +11,14 @@ import { ProductCategoryInterface } from "../../../modules/product-category/inte
 const initialValues: CreateProductCategoryInterface = {
   name: "",
   parentId: null,
+  image: "",
 };
 
 export default function CreateProductCategoryPage() {
   const { mutate } = useMutation(productCategoryService.create, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      alert("Sucesso!");
+    },
   });
   const formik = useFormik({
     initialValues,
