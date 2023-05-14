@@ -11,4 +11,5 @@ export type UpdateProductInterface = {
   supplierId: number | null;
   active?: boolean;
   productFeatures?: any[];
+  productKeywords?: any[];
 };

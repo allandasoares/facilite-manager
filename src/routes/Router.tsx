@@ -23,6 +23,9 @@ import ListSuppliersPage from "../pages/supplier/list/ListSuppliers.page";
 import ListFeaturesPage from "../pages/feature/list/ListFeatures.page";
 import CreateFeaturePage from "../pages/feature/create/CreateFeature.page";
 import UpdateFeaturePage from "../pages/feature/update/UpdaeFeature.page";
+import ListKeywordPage from "../pages/keyword/list/ListKeyword.page";
+import CreateKeywordPage from "../pages/keyword/create/CreateKeyword.page";
+import UpdateKeywordPage from "../pages/keyword/update/UpdaeKeyword.page";
 
 function RouteWithSideMenu(component: JSX.Element) {
   return <TopBar>{component}</TopBar>;
@@ -115,6 +118,18 @@ export default function Router() {
           <Route
             path="/features/edit/:featureId"
             element={RouteWithSideMenu(<UpdateFeaturePage />)}
+          />
+          <Route
+            path="/keywords"
+            element={RouteWithSideMenu(<ListKeywordPage />)}
+          />
+          <Route
+            path="/keywords/new"
+            element={RouteWithSideMenu(<CreateKeywordPage />)}
+          />
+          <Route
+            path="/keywords/edit/:keywordId"
+            element={RouteWithSideMenu(<UpdateKeywordPage />)}
           />
         </Route>
       </Routes>

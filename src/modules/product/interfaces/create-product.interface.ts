@@ -11,4 +11,5 @@ export type CreateProductInterface = {
   supplierId: number | null;
   active?: boolean;
   productFeatures?: any[];
+  productKeywords?: any[];
 };

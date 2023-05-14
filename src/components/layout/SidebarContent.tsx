@@ -11,6 +11,7 @@ import {
   FiBookmark,
   FiBox,
   FiHome,
+  FiKey,
   FiPaperclip,
   FiShuffle,
   FiTag,
@@ -32,6 +33,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Cat. Produtos", icon: FiPaperclip, url: "/products-categories" },
   { name: "Variações", icon: FiShuffle, url: "/variations" },
   { name: "Caracteristicas", icon: FiBookmark, url: "/features" },
+  { name: "Palavras-Chave", icon: FiKey, url: "/keywords" },
 ];
 
 interface SidebarProps {

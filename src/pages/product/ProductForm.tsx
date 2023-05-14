@@ -9,8 +9,10 @@ const ProductForm = ({
   productCategories,
   suppliers,
   productFeatures,
+  productkeywords,
 }: any) => (
   <form onSubmit={formik.handleSubmit}>
+    {console.log(productkeywords)}
     <SimpleGrid columns={2} spacing={10}>
       <TextField id="name" label="Nome do produto" formik={formik} />
       <TextField id="subtitle" label="Subtitulo" formik={formik} />
@@ -35,15 +37,30 @@ const ProductForm = ({
           isMulti
           colorScheme="blue"
           options={productFeatures}
-          name="label"
+          getOptionValue={(option) => option.id}
           value={formik.values.productFeatures}
+          closeMenuOnSelect={false}
           onChange={(values) => {
             formik.setFieldValue("productFeatures", values);
           }}
         />
       </div>
+      <div style={{ marginBottom: 160 }}>
+        <FormLabel>Palavras Chaves</FormLabel>
+        <Select
+          isMulti
+          colorScheme="blue"
+          options={productkeywords}
+          getOptionValue={(option) => option.id}
+          value={formik.values.productKeywords}
+          closeMenuOnSelect={false}
+          onChange={(values) => {
+            formik.setFieldValue("productKeywords", values);
+          }}
+        />
+      </div>
     </SimpleGrid>
-    <SimpleGrid columns={1} spacing={10} style={{ marginTop: 16 }}>
+    <SimpleGrid columns={1} spacing={10}>
       <RichText formik={formik} id="description" />
     </SimpleGrid>
   </form>

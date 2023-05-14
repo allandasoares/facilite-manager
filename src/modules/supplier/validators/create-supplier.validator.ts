@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
 const createSupplierValidator = Yup.object({
-  companyName: Yup.string().required("Preencha esse campo.").max(255),
-  tradingName: Yup.string().required("Preencha esse campo.").max(255),
+  companyName: Yup.string().required("Preencha esse campo.").max(191),
+  tradingName: Yup.string().required("Preencha esse campo.").max(191),
   cnpj: Yup.string()
     .required("Preencha esse campo.")
     .length(14, "O CNPJ deve ter exatamente 14 caracteres."),

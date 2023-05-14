@@ -4,6 +4,8 @@ import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { FeatureInterface } from "../../../modules/feature/interfaces/feature.interface";
 import featureService from "../../../modules/feature/services/feature.service";
+import { KeywordInterface } from "../../../modules/keyword/interfaces/keyword.interface";
+import keywordService from "../../../modules/keyword/services/keyword.service";
 import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
 import productCategoryCategoryService from "../../../modules/product-category/services/product-category.service";
 import { UpdateProductInterface } from "../../../modules/product/interfaces/update-product.interface";
@@ -23,6 +25,7 @@ const emptyProduct: UpdateProductInterface = {
   productCategoryId: 0,
   supplierId: 0,
   productFeatures: [],
+  productKeywords: [],
 };
 
 export default function UpdateProductPage() {
@@ -82,23 +85,53 @@ export default function UpdateProductPage() {
     label: feature.features.name,
   }));
 
+  const { data: keywordsForSelect, isLoading: keywordLoading } = useQuery(
+    "keywords",
+    () => keywordService.getAll(),
+    {
+      select: (res) =>
+        res.data.data.map((item: KeywordInterface) => ({
+          label: item.name,
+          id: item.id,
+        })),
+    }
+  );
+
+  const keywords = data?.data.data?.productKeywords.map((keyword: any) => ({
+    id: keyword.keywords.id,
+    label: keyword.keywords.name,
+  }));
+
   const formik = useFormik({
     initialValues:
-      { ...data?.data.data, productFeatures: features } || emptyProduct,
+      {
+        ...data?.data.data,
+        productFeatures: features,
+        productKeywords: keywords,
+      } || emptyProduct,
     onSubmit: () => {
       const featureIds = formik.values?.productFeatures.map(
+        (item: any) => item.id
+      );
+      const keywordIds = formik.values?.productKeywords.map(
         (item: any) => item.id
       );
       mutate({
         ...formik.values,
         productFeatures: featureIds,
+        productKeywords: keywordIds,
       });
     },
     validationSchema: createProductValidator,
     enableReinitialize: true, // This will update initialValues when data?.data.data changes
   });
 
-  if (productCategoriesLoading || supplierLoading || featureLoading)
+  if (
+    productCategoriesLoading ||
+    supplierLoading ||
+    featureLoading ||
+    keywordLoading
+  )
     return <Box>Loading...</Box>;
 
   return (
@@ -113,6 +146,7 @@ export default function UpdateProductPage() {
             productCategories={productCategoriesForSelect}
             suppliers={suppliersForSelect}
             productFeatures={featuresForSelect}
+            productkeywords={keywordsForSelect}
           />
           <Button
             colorScheme="blue"

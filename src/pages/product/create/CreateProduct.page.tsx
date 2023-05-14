@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { FeatureInterface } from "../../../modules/feature/interfaces/feature.interface";
 import featureService from "../../../modules/feature/services/feature.service";
+import keywordService from "../../../modules/keyword/services/keyword.service";
 import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
 import productCategoryCategoryService from "../../../modules/product-category/services/product-category.service";
 import { CreateProductInterface } from "../../../modules/product/interfaces/create-product.interface";
@@ -23,6 +24,7 @@ const initialValues: CreateProductInterface = {
   productCategoryId: null,
   supplierId: null,
   productFeatures: [],
+  productKeywords: [],
 };
 
 export default function CreatProductPage() {
@@ -66,6 +68,18 @@ export default function CreatProductPage() {
     }
   );
 
+  const { data: keywordsForSelect, isLoading: keywordsLoading } = useQuery(
+    "keywords",
+    () => keywordService.getAll(),
+    {
+      select: (data) =>
+        data.data.data.map((item: FeatureInterface) => ({
+          label: item.name,
+          id: item.id,
+        })),
+    }
+  );
+
   const { mutate } = useMutation(productService.create, {
     onSuccess: () => {
       navigate("/products");
@@ -76,15 +90,22 @@ export default function CreatProductPage() {
     initialValues,
     onSubmit: () => {
       const featureIds = formik.values?.productFeatures?.map((item) => item.id);
+      const keywordIds = formik.values?.productKeywords?.map((item) => item.id);
       mutate({
         ...formik.values,
         productFeatures: featureIds,
+        productKeywords: keywordIds,
       });
     },
     validationSchema: createProductValidator,
   });
 
-  if (productCategoriesLoading || supplierLoading || featureLoading)
+  if (
+    productCategoriesLoading ||
+    supplierLoading ||
+    featureLoading ||
+    keywordsLoading
+  )
     return <Box>Loading...</Box>;
 
   return (
@@ -98,6 +119,7 @@ export default function CreatProductPage() {
           productCategories={productCategoriesForSelect}
           suppliers={suppliersForSelect}
           productFeatures={featuresForSelect}
+          productkeywords={keywordsForSelect}
         />
         <Button
           colorScheme="blue"
