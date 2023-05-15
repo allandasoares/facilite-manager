@@ -59,6 +59,13 @@ const ProductForm = ({
           }}
         />
       </div>
+      <TextField
+        id="minimumToEstimate"
+        label="Minimo para orçamento"
+        type="number"
+        step={1}
+        formik={formik}
+      />
     </SimpleGrid>
     <SimpleGrid columns={1} spacing={10}>
       <RichText formik={formik} id="description" />

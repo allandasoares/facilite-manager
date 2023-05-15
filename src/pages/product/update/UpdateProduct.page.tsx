@@ -21,6 +21,7 @@ const emptyProduct: UpdateProductInterface = {
   subtitle: "",
   brand: "",
   price: 0,
+  minimumToEstimate: 1,
   image: "",
   productCategoryId: 0,
   supplierId: 0,

@@ -5,6 +5,7 @@ export type CreateProductInterface = {
   brand: string;
   image?: string | null;
   rating?: number;
+  minimumToEstimate?: number;
   price: number;
   priceUpdatedAt?: string | Date;
   productCategoryId: number | null;

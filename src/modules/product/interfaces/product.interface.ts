@@ -4,6 +4,8 @@ export type ProductInterface = {
   description: string;
   subtitle: string;
   image: string;
+  rating?: number;
+  minimumToEstimate?: number;
   price: number;
   priceUpdatedAt: string | Date;
   supplierId: number;

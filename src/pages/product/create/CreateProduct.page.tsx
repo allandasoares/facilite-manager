@@ -20,6 +20,7 @@ const initialValues: CreateProductInterface = {
   subtitle: "",
   brand: "",
   price: 0,
+  minimumToEstimate: 1,
   image: "",
   productCategoryId: null,
   supplierId: null,

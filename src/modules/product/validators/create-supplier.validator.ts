@@ -6,6 +6,7 @@ const createProductValidator = Yup.object({
   subtitle: Yup.string().required("Preencha esse campo").max(191),
   image: Yup.string().max(191),
   price: Yup.number().required("Preencha esse campo"),
+  minimumToEstimate: Yup.number().required("Preencha esse campo").min(1),
   supplierId: Yup.number().required("Preencha esse campo"),
   productCategoryId: Yup.number().required("Preencha esse campo"),
   active: Yup.boolean(),
