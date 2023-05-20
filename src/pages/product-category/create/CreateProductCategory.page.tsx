@@ -7,6 +7,8 @@ import createProductCategoryValidator from "../../../modules/product-category/va
 import { CreateProductCategoryInterface } from "../../../modules/product-category/interfaces/create-product-category.interface";
 import ProductCategoryForm from "../ProductCategoryForm";
 import { ProductCategoryInterface } from "../../../modules/product-category/interfaces/supplier-product.interface";
+import useFileInput from "../../../hooks/useFileInput";
+import useFormDataTransformer from "../../../hooks/useFormDataTransformer";
 
 const initialValues: CreateProductCategoryInterface = {
   name: "",
@@ -15,6 +17,8 @@ const initialValues: CreateProductCategoryInterface = {
 };
 
 export default function CreateProductCategoryPage() {
+  const imageInput = useFileInput();
+  const { transform } = useFormDataTransformer();
   const { mutate } = useMutation(productCategoryService.create, {
     onSuccess: () => {
       alert("Sucesso!");
@@ -23,7 +27,12 @@ export default function CreateProductCategoryPage() {
   const formik = useFormik({
     initialValues,
     onSubmit: () => {
-      mutate(formik.values);
+      const formData: any = transform({
+        values: formik.values,
+        exceptKeys: ["image"],
+        appendData: { image: imageInput.value },
+      });
+      mutate(formData);
     },
     validationSchema: createProductCategoryValidator,
   });
@@ -56,6 +65,7 @@ export default function CreateProductCategoryPage() {
         </Heading>
         <ProductCategoryForm
           formik={formik}
+          imageInput={imageInput}
           productsCategories={productsCategories}
         />
         <Button

@@ -2,6 +2,8 @@ import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import useFileInput from "../../../hooks/useFileInput";
+import useFormDataTransformer from "../../../hooks/useFormDataTransformer";
 import { FeatureInterface } from "../../../modules/feature/interfaces/feature.interface";
 import featureService from "../../../modules/feature/services/feature.service";
 import keywordService from "../../../modules/keyword/services/keyword.service";
@@ -30,6 +32,8 @@ const initialValues: CreateProductInterface = {
 
 export default function CreatProductPage() {
   const navigate = useNavigate();
+  const imageInput = useFileInput();
+  const { transform } = useFormDataTransformer();
 
   const {
     data: productCategoriesForSelect,
@@ -92,11 +96,17 @@ export default function CreatProductPage() {
     onSubmit: () => {
       const featureIds = formik.values?.productFeatures?.map((item) => item.id);
       const keywordIds = formik.values?.productKeywords?.map((item) => item.id);
-      mutate({
-        ...formik.values,
-        productFeatures: featureIds,
-        productKeywords: keywordIds,
+      const formData: any = transform({
+        values: formik.values,
+        exceptKeys: ["image", "productFeatures", "productKeywords"],
+        appendData: {
+          image: imageInput.value,
+          productFeatures: featureIds,
+          productKeywords: keywordIds,
+        },
       });
+
+      mutate(formData);
     },
     validationSchema: createProductValidator,
   });
@@ -117,6 +127,7 @@ export default function CreatProductPage() {
         </Heading>
         <ProductForm
           formik={formik}
+          imageInput={imageInput}
           productCategories={productCategoriesForSelect}
           suppliers={suppliersForSelect}
           productFeatures={featuresForSelect}

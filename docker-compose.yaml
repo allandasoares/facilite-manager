@@ -10,7 +10,7 @@ services:
       - "5173:5173"
     networks:
       - backend
-    container_name: facilite-manager
+    container_name: busca_certa-manager
     volumes:
       - .:/node_app/app
     command: /bin/sh -c "chmod +x entrypoint.sh && /node_app/app/entrypoint.sh"
@@ -19,5 +19,5 @@ services:
 
 networks:
   backend:
-    name: facilite-backend_network
+    name: busca_certa-backend_network
     external: true

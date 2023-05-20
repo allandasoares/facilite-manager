@@ -2,6 +2,8 @@ import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import useFileInput from "../../../hooks/useFileInput";
+import useFormDataTransformer from "../../../hooks/useFormDataTransformer";
 import { FeatureInterface } from "../../../modules/feature/interfaces/feature.interface";
 import featureService from "../../../modules/feature/services/feature.service";
 import { KeywordInterface } from "../../../modules/keyword/interfaces/keyword.interface";
@@ -31,6 +33,8 @@ const emptyProduct: UpdateProductInterface = {
 
 export default function UpdateProductPage() {
   const { productId } = useParams();
+  const imageInput = useFileInput();
+  const { transform } = useFormDataTransformer();
   const { mutate } = useMutation(
     (data: UpdateProductInterface) => productService.update(+productId!, data),
     {
@@ -117,11 +121,16 @@ export default function UpdateProductPage() {
       const keywordIds = formik.values?.productKeywords.map(
         (item: any) => item.id
       );
-      mutate({
-        ...formik.values,
-        productFeatures: featureIds,
-        productKeywords: keywordIds,
+      const formData: any = transform({
+        values: formik.values,
+        exceptKeys: ["image", "productFeatures", "productKeywords", "id"],
+        appendData: {
+          image: imageInput.value ?? formik.values.image,
+          productFeatures: featureIds,
+          productKeywords: keywordIds,
+        },
       });
+      mutate(formData);
     },
     validationSchema: createProductValidator,
     enableReinitialize: true, // This will update initialValues when data?.data.data changes
@@ -144,6 +153,7 @@ export default function UpdateProductPage() {
         <>
           <ProductForm
             formik={formik}
+            imageInput={imageInput}
             productCategories={productCategoriesForSelect}
             suppliers={suppliersForSelect}
             productFeatures={featuresForSelect}

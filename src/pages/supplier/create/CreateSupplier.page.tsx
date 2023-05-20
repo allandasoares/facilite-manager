@@ -1,6 +1,8 @@
 import { Box, Card, Heading, Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useMutation } from "react-query";
+import useFileInput from "../../../hooks/useFileInput";
+import useFormDataTransformer from "../../../hooks/useFormDataTransformer";
 import { CreateSupplierInterface } from "../../../modules/supplier/interfaces/create-supplier.interface";
 import supplierService from "../../../modules/supplier/services/supplier.service";
 import createSupplierValidator from "../../../modules/supplier/validators/create-supplier.validator";
@@ -22,7 +24,7 @@ const initialValues: CreateSupplierInterface = {
   segment: "Metalorgico",
   website: "https://google.com",
   description: "descricao",
-  logo: "logo",
+  logo: "",
 };
 
 export default function CreateSupplierPage(): JSX.Element {
@@ -31,11 +33,19 @@ export default function CreateSupplierPage(): JSX.Element {
       alert("Sucesso!");
     },
   });
+  const logoInput = useFileInput();
+  const { transform } = useFormDataTransformer();
 
   const formik = useFormik({
     initialValues,
     onSubmit: () => {
-      mutate(formik.values);
+      const formData: any = transform({
+        values: formik.values,
+        exceptKeys: ["logo"],
+        appendData: { logo: logoInput.value },
+      });
+
+      mutate(formData);
     },
     validationSchema: createSupplierValidator,
   });
@@ -46,7 +56,7 @@ export default function CreateSupplierPage(): JSX.Element {
         <Heading fontWeight="bold" size="md" mb={4}>
           Novo Fornecedor
         </Heading>
-        <SupplierForm formik={formik} />
+        <SupplierForm formik={formik} fileInput={logoInput} />
         <Button
           colorScheme="blue"
           mt="5"

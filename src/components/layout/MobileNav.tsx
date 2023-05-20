@@ -43,7 +43,7 @@ export default function MobileNav({ onOpen }: MobileNavProps) {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        Facilite
+        Busca Certa
       </Text>
 
       <Box display={{ base: "none", md: "flex" }}>

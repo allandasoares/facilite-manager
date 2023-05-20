@@ -7,6 +7,8 @@ import { UpdateSupplierInterface } from "../../../modules/supplier/interfaces/up
 import supplierService from "../../../modules/supplier/services/supplier.service";
 import createSupplierValidator from "../../../modules/supplier/validators/create-supplier.validator";
 import SupplierForm from "../SupplierForm";
+import useFileInput from "../../../hooks/useFileInput";
+import useFormDataTransformer from "../../../hooks/useFormDataTransformer";
 
 const emptySupplier: UpdateSupplierInterface = {
   companyName: "",
@@ -28,6 +30,8 @@ const emptySupplier: UpdateSupplierInterface = {
 };
 
 export default function UpdateSupplierPage() {
+  const logoInput = useFileInput();
+  const { transform } = useFormDataTransformer();
   const { supplierId } = useParams();
   const { mutate } = useMutation(
     (data: UpdateSupplierInterface) =>
@@ -45,7 +49,13 @@ export default function UpdateSupplierPage() {
   const formik = useFormik({
     initialValues: data?.data.data || emptySupplier,
     onSubmit: () => {
-      mutate(formik.values);
+      const formData: any = transform({
+        values: formik.values,
+        exceptKeys: ["logo", "id", "supplierCategoryId"],
+        appendData: { logo: logoInput.value ?? formik.values.logo },
+      });
+
+      mutate(formData);
     },
     validationSchema: createSupplierValidator,
     enableReinitialize: true, // This will update initialValues when data?.data.data changes
@@ -58,7 +68,7 @@ export default function UpdateSupplierPage() {
           Atualizar Fornecedor
         </Heading>
         <>
-          <SupplierForm formik={formik} />
+          <SupplierForm formik={formik} fileInput={logoInput} />
           <Button
             colorScheme="blue"
             mt="5"

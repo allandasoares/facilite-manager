@@ -42,7 +42,7 @@ export default function CreateSupplierCategoryPage() {
         setSuppliersCategories(res);
       })
       .catch((error: any) => {
-        console.log("Deu erro aqui em", error);
+        console.log(error);
       });
   }, []);
 

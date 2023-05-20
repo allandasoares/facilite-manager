@@ -51,7 +51,7 @@ export default function Login() {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Login Facilite Manager</Heading>
+          <Heading fontSize={"4xl"}>Login Busca Certa Manager</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
             feito por <Link color={"blue.400"}>Matheus e Allanda</Link> ✌️
           </Text>

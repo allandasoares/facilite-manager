@@ -9,7 +9,7 @@ export type UpdateSupplierInterface = {
   segment: string;
   website?: string;
   description: string;
-  logo?: string;
+  logo: string;
   street: string;
   number: string;
   neighborhood: string;
