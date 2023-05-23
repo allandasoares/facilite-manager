@@ -5,7 +5,7 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm cache clean --force
 RUN npm install
-RUN chmod -R 777 ./node_modules
+# RUN chmod -R 777 ./node_modules
 
 WORKDIR /node_app/app
 USER node
