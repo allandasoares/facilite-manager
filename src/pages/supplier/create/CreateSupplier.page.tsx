@@ -9,21 +9,21 @@ import createSupplierValidator from "../../../modules/supplier/validators/create
 import SupplierForm from "../SupplierForm";
 
 const initialValues: CreateSupplierInterface = {
-  companyName: "Empresa Teste",
-  tradingName: "Empresinha",
-  cnpj: "1234567892",
-  email: "a2@a.com",
-  phoneNumber: "1934353705",
-  mobileNumber: "19983136930",
-  street: "Rua dos amores",
-  number: "127",
-  neighborhood: "São Jorge",
-  city: "Piracicaba",
-  state: "São Paulo",
-  zipCode: "13402803",
-  segment: "Metalorgico",
-  website: "https://google.com",
-  description: "descricao",
+  companyName: "",
+  tradingName: "",
+  cnpj: "",
+  email: "",
+  phoneNumber: "",
+  mobileNumber: "",
+  street: "",
+  number: "",
+  neighborhood: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  segment: "segmento",
+  website: "",
+  description: "",
   logo: "",
 };
 
@@ -47,7 +47,7 @@ export default function CreateSupplierPage(): JSX.Element {
 
       mutate(formData);
     },
-    validationSchema: createSupplierValidator,
+    // validationSchema: createSupplierValidator,
   });
 
   return (

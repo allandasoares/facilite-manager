@@ -22,6 +22,14 @@ const SupplierTable: React.FC<SupplierTableProps> = ({ suppliers }) => {
     { header: "Celular", accessor: "mobileNumber" },
     { header: "segment", accessor: "segment" },
     {
+      header: "Áreas de Atuação",
+      accessor: (item: any) => (
+        <Button onClick={() => navigate(`/suppliers/action-areas/${item.id}`)}>
+          Atuação
+        </Button>
+      ),
+    },
+    {
       header: "Ações",
       accessor: (item: any) => (
         <Button onClick={() => navigate(`/suppliers/edit/${item.id}`)}>

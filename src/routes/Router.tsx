@@ -26,6 +26,7 @@ import UpdateFeaturePage from "../pages/feature/update/UpdaeFeature.page";
 import ListKeywordPage from "../pages/keyword/list/ListKeyword.page";
 import CreateKeywordPage from "../pages/keyword/create/CreateKeyword.page";
 import UpdateKeywordPage from "../pages/keyword/update/UpdaeKeyword.page";
+import ActionAreasPage from "../pages/supplier/action-areas/ActionAreasPage";
 
 function RouteWithSideMenu(component: JSX.Element) {
   return <TopBar>{component}</TopBar>;
@@ -50,6 +51,10 @@ export default function Router() {
           <Route
             path="/suppliers/edit/:supplierId"
             element={RouteWithSideMenu(<UpdateSupplierPage />)}
+          />
+          <Route
+            path="/suppliers/action-areas/:supplierId"
+            element={RouteWithSideMenu(<ActionAreasPage />)}
           />
           <Route
             path="/suppliers-categories"

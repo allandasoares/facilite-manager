@@ -8,6 +8,8 @@ const supplierService = {
   create: (data: CreateSupplierInterface) => api.post("/suppliers", data),
   update: (id: number, data: UpdateSupplierInterface) =>
     api.put(`/suppliers/${id}`, data),
+  updateActionAreas: (id: number, data: any) =>
+    api.patch(`/suppliers/${id}/action-areas`, data),
   delete: (id: number) => api.delete(`/suppliers/${id}`),
 };
 
