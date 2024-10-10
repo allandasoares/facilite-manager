@@ -49,6 +49,13 @@ const statData: StatData[] = [
     icon: HiOutlineMail,
     percentage: "30%",
   },
+  {
+    id: 3,
+    label: "Total de orçamentos",
+    score: 100,
+    icon: HiOutlineMail,
+    percentage: "30%",
+  },
 ];
 
 const Card = ({ data }: { data: StatData }) => (
@@ -132,7 +139,7 @@ export default function Home() {
 
   return (
     <>
-      <Text>Home</Text>
+      <Text>Home!</Text>
       <Button onClick={toggleColorMode}>Toggle theme</Button>
       <StatsWithIcons />
     </>

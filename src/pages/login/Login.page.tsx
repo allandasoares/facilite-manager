@@ -102,7 +102,6 @@ export default function Login() {
                   </Text>
                   <Divider borderColor="gray.300" flex="1" />
                 </Flex>
-                {/* Google */}
                 <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
                   <Center>
                     <Text>Entre com o Google</Text>
